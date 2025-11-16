@@ -117,22 +117,3 @@
 		</div>
 	</div>
 </section>
-
-<!-- CTA Section -->
-<section class="py-16 bg-emerald-600 dark:bg-emerald-700">
-	<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-		<h2 class="text-3xl font-bold text-white mb-4">
-			Ready to Make Better Choices?
-		</h2>
-		<p class="text-emerald-100 mb-8 text-lg">
-			Explore our full catalog of product assessments and discover sustainable alternatives
-		</p>
-		<a
-			href="/assessments"
-			class="inline-flex items-center justify-center px-8 py-3 bg-white hover:bg-slate-100 text-emerald-600 font-semibold rounded-lg transition-colors"
-		>
-			Explore Products
-			<ArrowRight class="w-5 h-5 ml-2" />
-		</a>
-	</div>
-</section>

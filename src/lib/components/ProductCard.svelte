@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Product } from '$lib/data/products';
-	import { ArrowRight, Leaf, Heart, Clock, Star } from 'lucide-svelte';
+	import { Leaf, Heart, Clock, Star } from 'lucide-svelte';
 	import ScoreBar from './ScoreBar.svelte';
 
 	interface Props {
@@ -18,8 +18,11 @@
 	}
 </script>
 
-<article class="bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-200 dark:border-slate-700 overflow-hidden group">
-	<div class="p-6">
+<a
+	href="/assessments/{product.id}"
+	class="block bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-200 dark:border-slate-700 overflow-hidden group cursor-pointer"
+>
+	<article class="p-6">
 		<div class="flex items-start justify-between mb-4">
 			<div>
 				<span class="text-xs font-medium px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full">
@@ -56,7 +59,7 @@
 			</div>
 		</div>
 
-		<div class="flex items-center justify-between text-sm">
+		<div class="flex items-center text-sm">
 			<div class="flex items-center space-x-1 text-slate-500">
 				<Clock class="w-4 h-4" />
 				<span>
@@ -65,13 +68,6 @@
 						: `${Math.round(product.assessment.lifetime * 12)} months`}
 				</span>
 			</div>
-			<a
-				href="/assessments/{product.id}"
-				class="inline-flex items-center space-x-1 text-emerald-600 dark:text-emerald-400 hover:underline font-medium"
-			>
-				<span>View Details</span>
-				<ArrowRight class="w-4 h-4" />
-			</a>
 		</div>
-	</div>
-</article>
+	</article>
+</a>
