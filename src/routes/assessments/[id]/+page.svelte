@@ -1,0 +1,237 @@
+<script lang="ts">
+	import type { PageData } from './$types';
+	import ScoreBar from '$lib/components/ScoreBar.svelte';
+	import {
+		ArrowLeft,
+		Leaf,
+		Droplets,
+		Trash2,
+		Mountain,
+		Factory,
+		Heart,
+		Clock,
+		Wrench,
+		Recycle,
+		CheckCircle,
+		AlertTriangle,
+		Star
+	} from 'lucide-svelte';
+
+	let { data }: { data: PageData } = $props();
+	const product = data.product;
+</script>
+
+<svelte:head>
+	<title>{product.name} Assessment - LifecycleProducts</title>
+	<meta name="description" content="Detailed lifecycle assessment for {product.name}" />
+</svelte:head>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+	<!-- Back Button -->
+	<a
+		href="/assessments"
+		class="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:underline mb-6"
+	>
+		<ArrowLeft class="w-4 h-4 mr-1" />
+		Back to Assessments
+	</a>
+
+	<!-- Product Header -->
+	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+		<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+			<div>
+				<span class="text-sm font-medium px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full">
+					{product.category}
+				</span>
+				<h1 class="text-3xl font-bold mt-3 mb-2">{product.name}</h1>
+				<p class="text-slate-600 dark:text-slate-400 max-w-2xl">
+					{product.description}
+				</p>
+			</div>
+			<div class="flex items-center space-x-2">
+				<Clock class="w-5 h-5 text-slate-400" />
+				<span class="text-lg font-medium">
+					Expected Lifetime:
+					{product.assessment.lifetime >= 1
+						? `${product.assessment.lifetime} year${product.assessment.lifetime !== 1 ? 's' : ''}`
+						: `${Math.round(product.assessment.lifetime * 12)} months`}
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+		<!-- Lifecycle Negatives -->
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+			<h2 class="text-xl font-bold mb-6 flex items-center">
+				<span class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mr-3">
+					<Factory class="w-4 h-4 text-red-600 dark:text-red-400" />
+				</span>
+				Lifecycle Negatives
+			</h2>
+			<div class="space-y-6">
+				<div class="flex items-start space-x-3">
+					<Leaf class="w-5 h-5 text-slate-400 mt-1" />
+					<div class="flex-1">
+						<div class="flex justify-between mb-1">
+							<span class="font-medium">Carbon Footprint</span>
+							<span class="text-sm text-slate-600 dark:text-slate-400">{product.assessment.negatives.carbon} kg CO₂e</span>
+						</div>
+						<p class="text-xs text-slate-500">Total greenhouse gas emissions from production to disposal</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<Droplets class="w-5 h-5 text-slate-400 mt-1" />
+					<div class="flex-1">
+						<div class="flex justify-between mb-1">
+							<span class="font-medium">Water Usage</span>
+							<span class="text-sm text-slate-600 dark:text-slate-400">{product.assessment.negatives.water} liters</span>
+						</div>
+						<p class="text-xs text-slate-500">Total water consumed throughout product lifecycle</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<Trash2 class="w-5 h-5 text-slate-400 mt-1" />
+					<div class="flex-1">
+						<div class="flex justify-between mb-1">
+							<span class="font-medium">Waste Generated</span>
+							<span class="text-sm text-slate-600 dark:text-slate-400">{product.assessment.negatives.waste} kg</span>
+						</div>
+						<p class="text-xs text-slate-500">Total waste produced during manufacturing and disposal</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<Mountain class="w-5 h-5 text-slate-400 mt-1" />
+					<div class="flex-1">
+						<div class="flex justify-between mb-1">
+							<span class="font-medium">Land Use</span>
+							<span class="text-sm text-slate-600 dark:text-slate-400">{product.assessment.negatives.landUse} m²</span>
+						</div>
+						<p class="text-xs text-slate-500">Land area required for raw materials and production</p>
+					</div>
+				</div>
+				<div>
+					<div class="flex items-center space-x-3 mb-2">
+						<Factory class="w-5 h-5 text-slate-400" />
+						<span class="font-medium">Pollution Score</span>
+					</div>
+					<ScoreBar score={10 - product.assessment.negatives.pollution} label="Lower is better (inverted)" />
+				</div>
+			</div>
+		</div>
+
+		<!-- Lifecycle Positives -->
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+			<h2 class="text-xl font-bold mb-6 flex items-center">
+				<span class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mr-3">
+					<CheckCircle class="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+				</span>
+				Lifecycle Positives
+			</h2>
+			<div class="space-y-6">
+				<div class="flex items-center space-x-3">
+					<div class={`w-5 h-5 rounded-full flex items-center justify-center ${product.assessment.positives.livingWages ? 'bg-emerald-500' : 'bg-red-500'}`}>
+						<CheckCircle class="w-3 h-3 text-white" />
+					</div>
+					<span class="font-medium">Living Wages Paid</span>
+					<span class={`text-sm ${product.assessment.positives.livingWages ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+						{product.assessment.positives.livingWages ? 'Yes' : 'No'}
+					</span>
+				</div>
+				<div>
+					<div class="flex items-center space-x-3 mb-3">
+						<Leaf class="w-5 h-5 text-emerald-500" />
+						<span class="font-medium">Environmental Improvements</span>
+					</div>
+					<ul class="space-y-2 pl-8">
+						{#each product.assessment.positives.environmentalImprovements as improvement}
+							<li class="text-sm text-slate-600 dark:text-slate-400 flex items-center">
+								<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span>
+								{improvement}
+							</li>
+						{/each}
+					</ul>
+				</div>
+				<div>
+					<div class="flex items-center space-x-3 mb-2">
+						<Recycle class="w-5 h-5 text-blue-500" />
+						<span class="font-medium">Recyclability</span>
+					</div>
+					<ScoreBar score={product.assessment.positives.recyclability} maxScore={100} label="Percentage recyclable" />
+				</div>
+				<div>
+					<div class="flex items-center space-x-3 mb-2">
+						<Wrench class="w-5 h-5 text-amber-500" />
+						<span class="font-medium">Repairability</span>
+					</div>
+					<ScoreBar score={product.assessment.positives.repairability} label="Ease of repair" />
+				</div>
+			</div>
+		</div>
+
+		<!-- Health Impacts -->
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+			<h2 class="text-xl font-bold mb-6 flex items-center">
+				<span class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center mr-3">
+					<Heart class="w-4 h-4 text-rose-600 dark:text-rose-400" />
+				</span>
+				Health Impacts
+			</h2>
+			<div class="space-y-6">
+				<div>
+					<div class="mb-2">
+						<span class="font-medium">Overall Health Safety Score</span>
+					</div>
+					<ScoreBar score={product.assessment.healthImpacts.score} label="10 = Safest" />
+				</div>
+				{#if product.assessment.healthImpacts.concerns.length > 0}
+					<div>
+						<div class="flex items-center space-x-2 mb-3">
+							<AlertTriangle class="w-5 h-5 text-amber-500" />
+							<span class="font-medium">Health Concerns</span>
+						</div>
+						<ul class="space-y-2 pl-7">
+							{#each product.assessment.healthImpacts.concerns as concern}
+								<li class="text-sm text-slate-600 dark:text-slate-400 flex items-center">
+									<span class="w-1.5 h-1.5 bg-amber-500 rounded-full mr-2"></span>
+									{concern}
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+				{#if product.assessment.healthImpacts.benefits.length > 0}
+					<div>
+						<div class="flex items-center space-x-2 mb-3">
+							<CheckCircle class="w-5 h-5 text-emerald-500" />
+							<span class="font-medium">Health Benefits</span>
+						</div>
+						<ul class="space-y-2 pl-7">
+							{#each product.assessment.healthImpacts.benefits as benefit}
+								<li class="text-sm text-slate-600 dark:text-slate-400 flex items-center">
+									<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span>
+									{benefit}
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+			</div>
+		</div>
+
+		<!-- Use and Quality -->
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+			<h2 class="text-xl font-bold mb-6 flex items-center">
+				<span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mr-3">
+					<Star class="w-4 h-4 text-amber-600 dark:text-amber-400" />
+				</span>
+				Use & Quality
+			</h2>
+			<div class="space-y-6">
+				<ScoreBar score={product.assessment.useAndQuality.durability} label="Durability" />
+				<ScoreBar score={product.assessment.useAndQuality.functionality} label="Functionality" />
+				<ScoreBar score={product.assessment.useAndQuality.userSatisfaction} label="User Satisfaction" />
+			</div>
+		</div>
+	</div>
+</div>

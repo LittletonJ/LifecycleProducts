@@ -1,0 +1,209 @@
+export interface LifecycleNegatives {
+	carbon: number; // kg CO2e
+	water: number; // liters
+	waste: number; // kg
+	landUse: number; // m²
+	pollution: number; // 1-10 scale
+}
+
+export interface LifecyclePositives {
+	livingWages: boolean;
+	environmentalImprovements: string[];
+	recyclability: number; // percentage
+	repairability: number; // 1-10 scale
+}
+
+export interface Assessment {
+	negatives: LifecycleNegatives;
+	positives: LifecyclePositives;
+	lifetime: number; // years
+	healthImpacts: {
+		score: number; // 1-10 (10 being safest)
+		concerns: string[];
+		benefits: string[];
+	};
+	useAndQuality: {
+		durability: number; // 1-10
+		functionality: number; // 1-10
+		userSatisfaction: number; // 1-10
+	};
+}
+
+export interface Product {
+	id: string;
+	name: string;
+	category: string;
+	description: string;
+	imageUrl: string;
+	assessment: Assessment;
+}
+
+export const products: Product[] = [
+	{
+		id: 'bamboo-toothbrush',
+		name: 'Bamboo Toothbrush',
+		category: 'Personal Care',
+		description: 'Biodegradable toothbrush with bamboo handle and charcoal-infused bristles',
+		imageUrl: '/images/bamboo-toothbrush.svg',
+		assessment: {
+			negatives: {
+				carbon: 0.8,
+				water: 12,
+				waste: 0.015,
+				landUse: 0.02,
+				pollution: 2
+			},
+			positives: {
+				livingWages: true,
+				environmentalImprovements: ['Biodegradable handle', 'Sustainable bamboo sourcing', 'Plastic-free packaging'],
+				recyclability: 85,
+				repairability: 1
+			},
+			lifetime: 0.25,
+			healthImpacts: {
+				score: 9,
+				concerns: [],
+				benefits: ['BPA-free', 'Natural antimicrobial properties']
+			},
+			useAndQuality: {
+				durability: 7,
+				functionality: 8,
+				userSatisfaction: 8
+			}
+		}
+	},
+	{
+		id: 'stainless-water-bottle',
+		name: 'Stainless Steel Water Bottle',
+		category: 'Drinkware',
+		description: 'Double-walled insulated bottle that keeps drinks cold for 24h or hot for 12h',
+		imageUrl: '/images/water-bottle.svg',
+		assessment: {
+			negatives: {
+				carbon: 8.5,
+				water: 280,
+				waste: 0.45,
+				landUse: 0.15,
+				pollution: 4
+			},
+			positives: {
+				livingWages: true,
+				environmentalImprovements: ['Replaces 167 plastic bottles/year', 'Infinitely recyclable material'],
+				recyclability: 100,
+				repairability: 3
+			},
+			lifetime: 10,
+			healthImpacts: {
+				score: 10,
+				concerns: [],
+				benefits: ['No chemical leaching', 'No microplastics', 'Food-grade steel']
+			},
+			useAndQuality: {
+				durability: 9,
+				functionality: 9,
+				userSatisfaction: 9
+			}
+		}
+	},
+	{
+		id: 'organic-cotton-tshirt',
+		name: 'Organic Cotton T-Shirt',
+		category: 'Clothing',
+		description: 'Fair-trade certified organic cotton t-shirt with natural dyes',
+		imageUrl: '/images/tshirt.svg',
+		assessment: {
+			negatives: {
+				carbon: 6.2,
+				water: 2700,
+				waste: 0.8,
+				landUse: 8.5,
+				pollution: 3
+			},
+			positives: {
+				livingWages: true,
+				environmentalImprovements: ['No pesticides', 'Natural dyes', 'Compostable at end of life'],
+				recyclability: 75,
+				repairability: 8
+			},
+			lifetime: 3,
+			healthImpacts: {
+				score: 9,
+				concerns: [],
+				benefits: ['No harmful chemicals', 'Hypoallergenic', 'Breathable']
+			},
+			useAndQuality: {
+				durability: 7,
+				functionality: 8,
+				userSatisfaction: 8
+			}
+		}
+	},
+	{
+		id: 'cast-iron-skillet',
+		name: 'Cast Iron Skillet',
+		category: 'Kitchenware',
+		description: 'Pre-seasoned 12-inch cast iron skillet, made in USA',
+		imageUrl: '/images/skillet.svg',
+		assessment: {
+			negatives: {
+				carbon: 12.4,
+				water: 450,
+				waste: 0.2,
+				landUse: 0.3,
+				pollution: 5
+			},
+			positives: {
+				livingWages: true,
+				environmentalImprovements: ['Lasts generations', 'No non-stick coatings', 'Recyclable'],
+				recyclability: 100,
+				repairability: 9
+			},
+			lifetime: 100,
+			healthImpacts: {
+				score: 8,
+				concerns: ['Requires proper seasoning maintenance'],
+				benefits: ['Adds dietary iron', 'No PFAS', 'No plastic components']
+			},
+			useAndQuality: {
+				durability: 10,
+				functionality: 9,
+				userSatisfaction: 9
+			}
+		}
+	},
+	{
+		id: 'led-desk-lamp',
+		name: 'Modular LED Desk Lamp',
+		category: 'Electronics',
+		description: 'Repairable LED lamp with replaceable components and 50,000 hour lifespan',
+		imageUrl: '/images/desk-lamp.svg',
+		assessment: {
+			negatives: {
+				carbon: 15.2,
+				water: 890,
+				waste: 0.6,
+				landUse: 0.4,
+				pollution: 6
+			},
+			positives: {
+				livingWages: true,
+				environmentalImprovements: ['Energy efficient', 'Replaceable parts', 'Recyclable aluminum'],
+				recyclability: 70,
+				repairability: 9
+			},
+			lifetime: 15,
+			healthImpacts: {
+				score: 8,
+				concerns: ['Blue light exposure'],
+				benefits: ['No mercury', 'Flicker-free', 'Adjustable color temperature']
+			},
+			useAndQuality: {
+				durability: 8,
+				functionality: 9,
+				userSatisfaction: 9
+			}
+		}
+	}
+];
+
+export const categories = [...new Set(products.map(p => p.category))];
