@@ -10,7 +10,10 @@
 		Leaf,
 		Heart,
 		Wrench,
-		Clock
+		Clock,
+		Calculator,
+		DollarSign,
+		TrendingDown
 	} from 'lucide-svelte';
 </script>
 
@@ -198,6 +201,57 @@
 							</div>
 						</li>
 					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-slate-800 dark:to-emerald-900/20 rounded-xl shadow-sm border border-emerald-200 dark:border-emerald-700 p-6">
+			<div class="flex items-start space-x-4">
+				<div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0">
+					<Calculator class="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+				</div>
+				<div>
+					<h2 class="text-xl font-bold mb-3">Lifetime Value Analysis</h2>
+					<p class="text-slate-600 dark:text-slate-400 mb-4">
+						We calculate the true economic value of each product over its lifetime:
+					</p>
+					<ul class="space-y-3">
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Purchase Price ($)</strong> - The typical retail cost of the product at time of assessment.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Uses Per Year</strong> - Estimated number of times the product is used annually based on typical usage patterns (e.g., toothbrush = 730 uses/year for 2x daily brushing).
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Lifetime Uses</strong> - Total uses over the product's lifespan, calculated as: Uses Per Year × Expected Lifetime (years).
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Cost Per Use</strong> - The amortized cost for each use, calculated as: Purchase Price ÷ Lifetime Uses. This reveals the true value of durable products.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Cost Per Year</strong> - Annual cost of ownership, calculated as: Purchase Price ÷ Expected Lifetime (years). Useful for budgeting and comparing alternatives.
+							</div>
+						</li>
+					</ul>
+					<div class="mt-4 p-4 bg-white/50 dark:bg-slate-900/30 rounded-lg">
+						<p class="text-sm text-slate-600 dark:text-slate-400">
+							<strong>Why this matters:</strong> A $50 cast iron skillet that lasts 100 years costs only $0.50/year and $0.003 per use, while a $10 non-stick pan that lasts 2 years costs $5/year and $0.03 per use. The "expensive" option is actually 10x cheaper over time.
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>

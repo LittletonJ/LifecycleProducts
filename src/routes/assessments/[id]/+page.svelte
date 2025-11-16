@@ -14,11 +14,19 @@
 		Recycle,
 		CheckCircle,
 		AlertTriangle,
-		Star
+		Star,
+		DollarSign,
+		Calculator,
+		TrendingDown
 	} from 'lucide-svelte';
 
 	let { data }: { data: PageData } = $props();
 	const product = data.product;
+
+	// Calculate lifetime metrics
+	const lifetimeUses = Math.round(product.usesPerYear * product.assessment.lifetime);
+	const costPerUse = product.price / lifetimeUses;
+	const costPerYear = product.price / product.assessment.lifetime;
 </script>
 
 <svelte:head>
@@ -56,6 +64,71 @@
 						? `${product.assessment.lifetime} year${product.assessment.lifetime !== 1 ? 's' : ''}`
 						: `${Math.round(product.assessment.lifetime * 12)} months`}
 				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Lifetime Value & Cost Analysis -->
+	<div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-slate-800 dark:to-emerald-900/20 rounded-xl shadow-sm border border-emerald-200 dark:border-emerald-800 p-6 mb-8">
+		<h2 class="text-xl font-bold mb-6 flex items-center">
+			<span class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mr-3">
+				<Calculator class="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+			</span>
+			Lifetime Value Analysis
+		</h2>
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+			<div class="bg-white/80 dark:bg-slate-900/50 rounded-lg p-4">
+				<div class="flex items-center space-x-2 mb-2">
+					<DollarSign class="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+					<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Purchase Price</span>
+				</div>
+				<div class="text-2xl font-bold text-slate-900 dark:text-white">
+					${product.price.toFixed(2)}
+				</div>
+			</div>
+			<div class="bg-white/80 dark:bg-slate-900/50 rounded-lg p-4">
+				<div class="flex items-center space-x-2 mb-2">
+					<Clock class="w-5 h-5 text-blue-600 dark:text-blue-400" />
+					<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Lifetime Uses</span>
+				</div>
+				<div class="text-2xl font-bold text-slate-900 dark:text-white">
+					{lifetimeUses.toLocaleString()}
+				</div>
+				<div class="text-xs text-slate-500 mt-1">
+					{product.usesPerYear} uses/year × {product.assessment.lifetime >= 1
+						? `${product.assessment.lifetime} years`
+						: `${Math.round(product.assessment.lifetime * 12)} months`}
+				</div>
+			</div>
+			<div class="bg-white/80 dark:bg-slate-900/50 rounded-lg p-4">
+				<div class="flex items-center space-x-2 mb-2">
+					<TrendingDown class="w-5 h-5 text-amber-600 dark:text-amber-400" />
+					<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Cost Per Use</span>
+				</div>
+				<div class="text-2xl font-bold text-slate-900 dark:text-white">
+					{costPerUse < 0.01
+						? `$${(costPerUse * 100).toFixed(2)}¢`
+						: costPerUse < 1
+							? `${(costPerUse * 100).toFixed(1)}¢`
+							: `$${costPerUse.toFixed(2)}`}
+				</div>
+				<div class="text-xs text-slate-500 mt-1">
+					${product.price.toFixed(2)} ÷ {lifetimeUses.toLocaleString()} uses
+				</div>
+			</div>
+			<div class="bg-white/80 dark:bg-slate-900/50 rounded-lg p-4">
+				<div class="flex items-center space-x-2 mb-2">
+					<Calculator class="w-5 h-5 text-purple-600 dark:text-purple-400" />
+					<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Cost Per Year</span>
+				</div>
+				<div class="text-2xl font-bold text-slate-900 dark:text-white">
+					${costPerYear.toFixed(2)}
+				</div>
+				<div class="text-xs text-slate-500 mt-1">
+					${product.price.toFixed(2)} ÷ {product.assessment.lifetime >= 1
+						? `${product.assessment.lifetime} years`
+						: `${(product.assessment.lifetime).toFixed(2)} years`}
+				</div>
 			</div>
 		</div>
 	</div>

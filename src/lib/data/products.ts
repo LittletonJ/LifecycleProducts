@@ -35,6 +35,8 @@ export interface Product {
 	category: string;
 	description: string;
 	imageUrl: string;
+	price: number; // USD
+	usesPerYear: number; // estimated annual uses
 	assessment: Assessment;
 }
 
@@ -45,6 +47,8 @@ export const products: Product[] = [
 		category: 'Personal Care',
 		description: 'Biodegradable toothbrush with bamboo handle and charcoal-infused bristles',
 		imageUrl: '/images/bamboo-toothbrush.svg',
+		price: 5.00,
+		usesPerYear: 730, // 2x daily brushing
 		assessment: {
 			negatives: {
 				carbon: 0.8,
@@ -78,6 +82,8 @@ export const products: Product[] = [
 		category: 'Drinkware',
 		description: 'Double-walled insulated bottle that keeps drinks cold for 24h or hot for 12h',
 		imageUrl: '/images/water-bottle.svg',
+		price: 35.00,
+		usesPerYear: 365, // daily use
 		assessment: {
 			negatives: {
 				carbon: 8.5,
@@ -111,6 +117,8 @@ export const products: Product[] = [
 		category: 'Clothing',
 		description: 'Fair-trade certified organic cotton t-shirt with natural dyes',
 		imageUrl: '/images/tshirt.svg',
+		price: 30.00,
+		usesPerYear: 52, // worn once per week
 		assessment: {
 			negatives: {
 				carbon: 6.2,
@@ -144,6 +152,8 @@ export const products: Product[] = [
 		category: 'Kitchenware',
 		description: 'Pre-seasoned 12-inch cast iron skillet, made in USA',
 		imageUrl: '/images/skillet.svg',
+		price: 50.00,
+		usesPerYear: 156, // 3x per week
 		assessment: {
 			negatives: {
 				carbon: 12.4,
@@ -177,6 +187,8 @@ export const products: Product[] = [
 		category: 'Electronics',
 		description: 'Repairable LED lamp with replaceable components and 50,000 hour lifespan',
 		imageUrl: '/images/desk-lamp.svg',
+		price: 120.00,
+		usesPerYear: 365, // daily use
 		assessment: {
 			negatives: {
 				carbon: 15.2,
