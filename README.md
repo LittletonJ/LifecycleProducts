@@ -9,6 +9,14 @@ Website with the following components:
 3. Methodology
 * how to assess 
 4. Store
-* directly affiliates
-* 
-* used affiliates 
+* directly made
+* affiliates 
+* used options
+
+style:
+* modern, but lightweight
+* categories for products
+* dark and light modes
+
+self hosted on raspberry pi 4B:
+- panel to get battery and solar panels. ll
