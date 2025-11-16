@@ -13,6 +13,16 @@ export interface LifecyclePositives {
 	repairability: number; // 1-10 scale
 }
 
+export interface CostBreakdown {
+	rawMaterials: number; // percentage
+	manufacturing: number; // percentage
+	labor: number; // percentage
+	transportation: number; // percentage
+	marketing: number; // percentage
+	retail: number; // percentage
+	profit: number; // percentage
+}
+
 export interface Assessment {
 	negatives: LifecycleNegatives;
 	positives: LifecyclePositives;
@@ -37,6 +47,7 @@ export interface Product {
 	imageUrl: string;
 	price: number; // USD
 	usesPerYear: number; // estimated annual uses
+	costBreakdown: CostBreakdown;
 	assessment: Assessment;
 }
 
@@ -49,6 +60,15 @@ export const products: Product[] = [
 		imageUrl: '/images/bamboo-toothbrush.svg',
 		price: 5.00,
 		usesPerYear: 730, // 2x daily brushing
+		costBreakdown: {
+			rawMaterials: 25,
+			manufacturing: 15,
+			labor: 20,
+			transportation: 10,
+			marketing: 10,
+			retail: 12,
+			profit: 8
+		},
 		assessment: {
 			negatives: {
 				carbon: 0.8,
@@ -84,6 +104,15 @@ export const products: Product[] = [
 		imageUrl: '/images/water-bottle.svg',
 		price: 35.00,
 		usesPerYear: 365, // daily use
+		costBreakdown: {
+			rawMaterials: 30,
+			manufacturing: 20,
+			labor: 15,
+			transportation: 8,
+			marketing: 12,
+			retail: 10,
+			profit: 5
+		},
 		assessment: {
 			negatives: {
 				carbon: 8.5,
@@ -119,6 +148,15 @@ export const products: Product[] = [
 		imageUrl: '/images/tshirt.svg',
 		price: 30.00,
 		usesPerYear: 52, // worn once per week
+		costBreakdown: {
+			rawMaterials: 20,
+			manufacturing: 12,
+			labor: 30,
+			transportation: 8,
+			marketing: 10,
+			retail: 15,
+			profit: 5
+		},
 		assessment: {
 			negatives: {
 				carbon: 6.2,
@@ -154,6 +192,15 @@ export const products: Product[] = [
 		imageUrl: '/images/skillet.svg',
 		price: 50.00,
 		usesPerYear: 156, // 3x per week
+		costBreakdown: {
+			rawMaterials: 35,
+			manufacturing: 25,
+			labor: 18,
+			transportation: 5,
+			marketing: 5,
+			retail: 8,
+			profit: 4
+		},
 		assessment: {
 			negatives: {
 				carbon: 12.4,
@@ -189,6 +236,15 @@ export const products: Product[] = [
 		imageUrl: '/images/desk-lamp.svg',
 		price: 120.00,
 		usesPerYear: 365, // daily use
+		costBreakdown: {
+			rawMaterials: 25,
+			manufacturing: 18,
+			labor: 12,
+			transportation: 6,
+			marketing: 15,
+			retail: 14,
+			profit: 10
+		},
 		assessment: {
 			negatives: {
 				carbon: 15.2,

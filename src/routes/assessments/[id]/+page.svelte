@@ -17,7 +17,8 @@
 		Star,
 		DollarSign,
 		Calculator,
-		TrendingDown
+		TrendingDown,
+		PieChart
 	} from 'lucide-svelte';
 
 	let { data }: { data: PageData } = $props();
@@ -27,6 +28,17 @@
 	const lifetimeUses = Math.round(product.usesPerYear * product.assessment.lifetime);
 	const costPerUse = product.price / lifetimeUses;
 	const costPerYear = product.price / product.assessment.lifetime;
+
+	// Cost breakdown data
+	const costBreakdownItems = [
+		{ label: 'Raw Materials', value: product.costBreakdown.rawMaterials, color: 'bg-emerald-500', textColor: 'text-emerald-600 dark:text-emerald-400' },
+		{ label: 'Manufacturing', value: product.costBreakdown.manufacturing, color: 'bg-blue-500', textColor: 'text-blue-600 dark:text-blue-400' },
+		{ label: 'Labor', value: product.costBreakdown.labor, color: 'bg-amber-500', textColor: 'text-amber-600 dark:text-amber-400' },
+		{ label: 'Transportation', value: product.costBreakdown.transportation, color: 'bg-purple-500', textColor: 'text-purple-600 dark:text-purple-400' },
+		{ label: 'Marketing', value: product.costBreakdown.marketing, color: 'bg-rose-500', textColor: 'text-rose-600 dark:text-rose-400' },
+		{ label: 'Retail', value: product.costBreakdown.retail, color: 'bg-orange-500', textColor: 'text-orange-600 dark:text-orange-400' },
+		{ label: 'Profit', value: product.costBreakdown.profit, color: 'bg-slate-500', textColor: 'text-slate-600 dark:text-slate-400' }
+	];
 </script>
 
 <svelte:head>
@@ -130,6 +142,52 @@
 						: `${(product.assessment.lifetime).toFixed(2)} years`}
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<!-- Cost Breakdown Estimate -->
+	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+		<h2 class="text-xl font-bold mb-6 flex items-center">
+			<span class="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-3">
+				<PieChart class="w-4 h-4 text-purple-600 dark:text-purple-400" />
+			</span>
+			Cost Breakdown Estimate
+		</h2>
+		<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+			Estimated distribution of the ${product.price.toFixed(2)} purchase price across different cost factors:
+		</p>
+
+		<!-- Stacked Bar -->
+		<div class="h-8 rounded-full overflow-hidden flex mb-6">
+			{#each costBreakdownItems as item}
+				<div
+					class="{item.color} transition-all duration-300"
+					style="width: {item.value}%"
+					title="{item.label}: {item.value}%"
+				></div>
+			{/each}
+		</div>
+
+		<!-- Breakdown Details -->
+		<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+			{#each costBreakdownItems as item}
+				<div class="flex items-center space-x-2">
+					<div class="w-3 h-3 rounded-full {item.color} flex-shrink-0"></div>
+					<div class="min-w-0">
+						<div class="text-sm font-medium truncate">{item.label}</div>
+						<div class="text-xs text-slate-500">
+							{item.value}% · ${(product.price * item.value / 100).toFixed(2)}
+						</div>
+					</div>
+				</div>
+			{/each}
+		</div>
+
+		<div class="mt-4 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+			<p class="text-xs text-slate-500 dark:text-slate-400">
+				<strong>Note:</strong> These are estimated percentages based on industry averages and product-specific research.
+				Actual breakdowns may vary by manufacturer and region.
+			</p>
 		</div>
 	</div>
 

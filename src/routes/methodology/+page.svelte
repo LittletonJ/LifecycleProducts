@@ -13,7 +13,8 @@
 		Clock,
 		Calculator,
 		DollarSign,
-		TrendingDown
+		TrendingDown,
+		PieChart
 	} from 'lucide-svelte';
 </script>
 
@@ -250,6 +251,69 @@
 					<div class="mt-4 p-4 bg-white/50 dark:bg-slate-900/30 rounded-lg">
 						<p class="text-sm text-slate-600 dark:text-slate-400">
 							<strong>Why this matters:</strong> A $50 cast iron skillet that lasts 100 years costs only $0.50/year and $0.003 per use, while a $10 non-stick pan that lasts 2 years costs $5/year and $0.03 per use. The "expensive" option is actually 10x cheaper over time.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+			<div class="flex items-start space-x-4">
+				<div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+					<PieChart class="w-5 h-5 text-purple-600 dark:text-purple-400" />
+				</div>
+				<div>
+					<h2 class="text-xl font-bold mb-3">Cost Breakdown Estimate</h2>
+					<p class="text-slate-600 dark:text-slate-400 mb-4">
+						We estimate how the purchase price is distributed across different cost factors to provide transparency into product economics:
+					</p>
+					<ul class="space-y-3">
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Raw Materials (%)</strong> - Cost of sourcing and procuring base materials (e.g., bamboo, steel, cotton fiber).
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Manufacturing (%)</strong> - Production costs including machinery, energy, and facility overhead.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Labor (%)</strong> - Wages paid to workers throughout the production process. Higher percentages often indicate fair trade or domestic production.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Transportation (%)</strong> - Shipping and logistics costs from manufacturing to retail, including packaging.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Marketing (%)</strong> - Advertising, branding, and promotional expenses. Lower percentages suggest word-of-mouth or values-driven sales.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Retail (%)</strong> - Retailer margins including store operations, staff, and distribution network costs.
+							</div>
+						</li>
+						<li class="flex items-start">
+							<CheckCircle2 class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+							<div>
+								<strong>Profit (%)</strong> - Manufacturer and brand profit margins. Sustainable brands often have modest margins focused on long-term viability.
+							</div>
+						</li>
+					</ul>
+					<div class="mt-4 p-4 bg-slate-50 dark:bg-slate-900/30 rounded-lg">
+						<p class="text-sm text-slate-600 dark:text-slate-400">
+							<strong>Data Sources:</strong> Cost breakdowns are estimated using industry reports, company disclosures (when available), academic research on product economics, and supply chain analysis. These are approximations and may vary by manufacturer, region, and market conditions.
 						</p>
 					</div>
 				</div>
