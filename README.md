@@ -73,7 +73,13 @@ Products are defined in a single TypeScript file: `src/lib/data/products.ts`
     positives: {
       livingWages: boolean,
       environmentalImprovements: string[],  // Array of improvements
-      recyclability: number,     // Percentage
+      recyclability: {
+        percentage: number,      // Nominal recyclability percentage
+        materialType: string,    // 'metal' | 'glass' | 'paper' | 'natural' | 'plastic' | 'mixed' | 'composite'
+        downcyclingPenalty: number, // 0-1 penalty (0 = no penalty, 1 = full penalty)
+        effectiveRecyclability: number, // percentage * (1 - downcyclingPenalty)
+        notes: string            // Explanation of penalty
+      },
       repairability: number      // 1-10 scale
     },
     lifetime: number,            // Expected lifetime in years
@@ -127,7 +133,13 @@ export const products: Product[] = [
       positives: {
         livingWages: true,
         environmentalImprovements: ['Recycled materials', 'Solar-powered factory'],
-        recyclability: 85,
+        recyclability: {
+          percentage: 85,
+          materialType: 'metal',  // or 'plastic', 'glass', 'natural', 'mixed', 'composite', 'paper'
+          downcyclingPenalty: 0,  // 0 for metals/glass, 0.5-0.7 for plastics
+          effectiveRecyclability: 85,  // 85 * (1 - 0) = 85
+          notes: 'Explanation of material recyclability characteristics'
+        },
         repairability: 8
       },
       lifetime: 10,
@@ -137,8 +149,8 @@ export const products: Product[] = [
         benefits: ['Non-toxic materials', 'No harmful chemicals']
       },
       useAndQuality: {
-        durability: 'Excellent',
-        functionality: 'High',
+        durability: 7,  // 1-10 scale
+        functionality: 8,  // 1-10 scale
         userSatisfaction: 9
       }
     }
@@ -167,12 +179,31 @@ Methodology pages explain how products are assessed. They are located in `src/ro
 #### Current Methodology Pages
 
 - `/methodology` - Hub page with links to all sub-pages
-- `/methodology/lifecycle-negatives` - Environmental impact metrics
-- `/methodology/lifecycle-positives` - Positive product attributes
+- `/methodology/assessment-framework` - **START HERE** Priority matrix (severity × ease), estimation approaches inspired by "How Bad Are Bananas?" by Mike Berners-Lee
+- `/methodology/lifecycle-negatives` - Environmental impact metrics (carbon, water, waste, land, pollution)
 - `/methodology/health-impacts` - Health and safety scoring
-- `/methodology/use-quality` - Durability and quality assessment
-- `/methodology/lifetime-value` - Economic value calculations
+- `/methodology/lifecycle-positives` - Positive product attributes with downcycling penalties
+- `/methodology/use-quality` - Durability, functionality, user satisfaction
+- `/methodology/lifetime-value` - Economic value calculations (cost per use, cost per year)
 - `/methodology/cost-breakdown` - Price transparency analysis
+
+#### Recyclability Downcycling Penalties
+
+Not all recycling is equal. Materials that degrade during recycling or require energy-intensive processing receive penalties:
+
+| Material Type | Typical Penalty | Reason |
+|---------------|----------------|--------|
+| Metal (Steel, Aluminum) | 0% | Infinitely recyclable without quality loss |
+| Glass | 0% | Infinitely recyclable, maintains purity |
+| Paper/Cardboard | 10-30% | Fiber shortens each cycle (5-7 loops max) |
+| Natural Fibers | 10-20% | Quality degrades; often better composted |
+| Plastic (Single-type) | 50-70% | Polymer chains break down; typically recyclable once |
+| Plastic (Mixed) | 80-95% | Difficult separation; only 5% material value retained |
+| Composites | 30-60% | Separation required; often downcycled |
+
+**Formula:** `effectiveRecyclability = percentage × (1 - downcyclingPenalty)`
+
+Example: A product marketed as "70% recyclable" made of mixed plastics with a 0.85 penalty has an effective recyclability of only 10.5%.
 
 #### To Add a New Methodology Page
 

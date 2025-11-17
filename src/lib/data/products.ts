@@ -6,10 +6,18 @@ export interface LifecycleNegatives {
 	pollution: number; // 1-10 scale
 }
 
+export interface RecyclabilityInfo {
+	percentage: number; // nominal recyclability percentage
+	materialType: 'metal' | 'glass' | 'paper' | 'natural' | 'plastic' | 'mixed' | 'composite';
+	downcyclingPenalty: number; // 0-1 penalty factor (0 = no penalty, 1 = complete penalty)
+	effectiveRecyclability: number; // calculated: percentage * (1 - downcyclingPenalty)
+	notes: string; // explanation of penalty
+}
+
 export interface LifecyclePositives {
 	livingWages: boolean;
 	environmentalImprovements: string[];
-	recyclability: number; // percentage
+	recyclability: RecyclabilityInfo;
 	repairability: number; // 1-10 scale
 }
 
@@ -80,7 +88,13 @@ export const products: Product[] = [
 			positives: {
 				livingWages: true,
 				environmentalImprovements: ['Biodegradable handle', 'Sustainable bamboo sourcing', 'Plastic-free packaging'],
-				recyclability: 85,
+				recyclability: {
+					percentage: 85,
+					materialType: 'natural',
+					downcyclingPenalty: 0,
+					effectiveRecyclability: 85,
+					notes: 'Handle is compostable bamboo. Bristles may be nylon (check brand). Natural materials maintain value through composting.'
+				},
 				repairability: 1
 			},
 			lifetime: 0.25,
@@ -124,7 +138,13 @@ export const products: Product[] = [
 			positives: {
 				livingWages: true,
 				environmentalImprovements: ['Replaces 167 plastic bottles/year', 'Infinitely recyclable material'],
-				recyclability: 100,
+				recyclability: {
+					percentage: 100,
+					materialType: 'metal',
+					downcyclingPenalty: 0,
+					effectiveRecyclability: 100,
+					notes: 'Stainless steel is infinitely recyclable without quality loss. One of the best materials for true circular economy.'
+				},
 				repairability: 3
 			},
 			lifetime: 10,
@@ -168,7 +188,13 @@ export const products: Product[] = [
 			positives: {
 				livingWages: true,
 				environmentalImprovements: ['No pesticides', 'Natural dyes', 'Compostable at end of life'],
-				recyclability: 75,
+				recyclability: {
+					percentage: 75,
+					materialType: 'natural',
+					downcyclingPenalty: 0.1,
+					effectiveRecyclability: 67.5,
+					notes: 'Cotton can be recycled but fiber length shortens each cycle. Pure cotton without synthetic blends composts well. Small penalty for fiber degradation.'
+				},
 				repairability: 8
 			},
 			lifetime: 3,
@@ -212,7 +238,13 @@ export const products: Product[] = [
 			positives: {
 				livingWages: true,
 				environmentalImprovements: ['Lasts generations', 'No non-stick coatings', 'Recyclable'],
-				recyclability: 100,
+				recyclability: {
+					percentage: 100,
+					materialType: 'metal',
+					downcyclingPenalty: 0,
+					effectiveRecyclability: 100,
+					notes: 'Cast iron is infinitely recyclable. Can be melted and reformed without quality degradation. Energy-intensive to recycle but maintains full material value.'
+				},
 				repairability: 9
 			},
 			lifetime: 100,
@@ -256,7 +288,13 @@ export const products: Product[] = [
 			positives: {
 				livingWages: true,
 				environmentalImprovements: ['Energy efficient', 'Replaceable parts', 'Recyclable aluminum'],
-				recyclability: 70,
+				recyclability: {
+					percentage: 70,
+					materialType: 'mixed',
+					downcyclingPenalty: 0.3,
+					effectiveRecyclability: 49,
+					notes: 'Aluminum frame is fully recyclable. Electronics and plastic components require separation and specialized processing. Mixed materials reduce effective recyclability significantly.'
+				},
 				repairability: 9
 			},
 			lifetime: 15,

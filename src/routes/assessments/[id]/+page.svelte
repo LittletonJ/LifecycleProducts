@@ -287,8 +287,41 @@
 					<div class="flex items-center space-x-3 mb-2">
 						<Recycle class="w-5 h-5 text-blue-500" />
 						<span class="font-medium">Recyclability</span>
+						<span class="text-xs px-2 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">
+							{product.assessment.positives.recyclability.materialType}
+						</span>
 					</div>
-					<ScoreBar score={product.assessment.positives.recyclability} maxScore={100} label="Percentage recyclable" />
+					<div class="space-y-2">
+						<div>
+							<div class="flex justify-between text-xs mb-1">
+								<span>Nominal Recyclability</span>
+								<span>{product.assessment.positives.recyclability.percentage}%</span>
+							</div>
+							<div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+								<div class="h-full bg-blue-400" style="width: {product.assessment.positives.recyclability.percentage}%"></div>
+							</div>
+						</div>
+						{#if product.assessment.positives.recyclability.downcyclingPenalty > 0}
+							<div>
+								<div class="flex justify-between text-xs mb-1">
+									<span class="text-amber-600 dark:text-amber-400">Downcycling Penalty</span>
+									<span class="text-amber-600 dark:text-amber-400">-{Math.round(product.assessment.positives.recyclability.downcyclingPenalty * 100)}%</span>
+								</div>
+							</div>
+						{/if}
+						<div>
+							<div class="flex justify-between text-xs mb-1">
+								<span class="font-medium">Effective Recyclability</span>
+								<span class="font-medium">{product.assessment.positives.recyclability.effectiveRecyclability}%</span>
+							</div>
+							<div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+								<div class="h-full bg-emerald-500" style="width: {product.assessment.positives.recyclability.effectiveRecyclability}%"></div>
+							</div>
+						</div>
+						<p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+							{product.assessment.positives.recyclability.notes}
+						</p>
+					</div>
 				</div>
 				<div>
 					<div class="flex items-center space-x-3 mb-2">
