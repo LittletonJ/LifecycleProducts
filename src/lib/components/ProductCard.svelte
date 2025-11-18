@@ -13,7 +13,7 @@
 		const { assessment } = product;
 		const healthScore = assessment.healthImpacts.score;
 		const qualityScore = (assessment.useAndQuality.durability + assessment.useAndQuality.functionality + assessment.useAndQuality.userSatisfaction) / 3;
-		const sustainabilityScore = (10 - assessment.negatives.pollution) * 0.5 + (assessment.positives.recyclability / 10) * 0.5;
+		const sustainabilityScore = (10 - assessment.negatives.pollution) * 0.5 + (assessment.positives.recyclability.effectiveRecyclability / 10) * 0.5;
 		return Math.round((healthScore + qualityScore + sustainabilityScore) / 3 * 10) / 10;
 	}
 </script>
@@ -55,7 +55,7 @@
 			</div>
 			<div class="flex items-center space-x-2 text-sm">
 				<Leaf class="w-4 h-4 text-emerald-500" />
-				<ScoreBar score={Math.round(product.assessment.positives.recyclability / 10)} label="Sustainability" />
+				<ScoreBar score={Math.round(product.assessment.positives.recyclability.effectiveRecyclability / 10)} label="Sustainability" />
 			</div>
 		</div>
 
