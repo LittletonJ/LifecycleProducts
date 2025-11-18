@@ -25,15 +25,15 @@
 	<article class="p-6">
 		<div class="flex items-start justify-between mb-4">
 			<div>
-				<span class="text-xs font-medium px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full">
+				<span class="text-xs font-medium px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full">
 					{product.category}
 				</span>
-				<h3 class="text-lg font-semibold mt-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+				<h3 class="text-lg font-semibold mt-2 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
 					{product.name}
 				</h3>
 			</div>
 			<div class="text-right">
-				<div class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+				<div class="text-2xl font-bold text-slate-700 dark:text-slate-300">
 					{getOverallScore(product)}
 				</div>
 				<div class="text-xs text-slate-500">Overall</div>

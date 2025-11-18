@@ -17,7 +17,7 @@
 		<div class="text-center">
 			<h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
 				Know Your Product's
-				<span class="text-emerald-600 dark:text-emerald-400">True Impact</span>
+				<span class="text-slate-700 dark:text-slate-300">True Impact</span>
 			</h1>
 			<p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
 				Comprehensive lifecycle assessments that reveal the environmental footprint, health impacts,
@@ -26,7 +26,7 @@
 			<div class="flex flex-col sm:flex-row gap-4 justify-center">
 				<a
 					href="/assessments"
-					class="inline-flex items-center justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
+					class="inline-flex items-center justify-center px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white font-medium rounded-lg transition-colors"
 				>
 					<span>View Assessments</span>
 					<ArrowRight class="w-5 h-5 ml-2" />
@@ -103,7 +103,7 @@
 			<h2 class="text-3xl font-bold">Featured Assessments</h2>
 			<a
 				href="/assessments"
-				class="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:underline font-medium"
+				class="inline-flex items-center text-slate-700 dark:text-slate-300 hover:underline font-medium"
 			>
 				<span>View All</span>
 				<ArrowRight class="w-4 h-4 ml-1" />

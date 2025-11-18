@@ -6,7 +6,7 @@
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			<div>
-				<h3 class="text-lg font-semibold text-emerald-600 dark:text-emerald-400 mb-4">LifecycleProducts</h3>
+				<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">LifecycleProducts</h3>
 				<p class="text-slate-600 dark:text-slate-400 text-sm">
 					Helping you make informed decisions about the products you use,
 					considering their full environmental and social impact.
@@ -15,9 +15,9 @@
 			<div>
 				<h4 class="font-semibold mb-4">Quick Links</h4>
 				<ul class="space-y-2 text-sm">
-					<li><a href="/assessments" class="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400">View Assessments</a></li>
-					<li><a href="/methodology" class="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400">Our Methodology</a></li>
-					<li><a href="/store" class="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400">Shop Products</a></li>
+					<li><a href="/assessments" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">View Assessments</a></li>
+					<li><a href="/methodology" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">Our Methodology</a></li>
+					<li><a href="/store" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">Shop Products</a></li>
 				</ul>
 			</div>
 			<div>

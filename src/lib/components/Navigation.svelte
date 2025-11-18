@@ -16,7 +16,7 @@
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex justify-between h-16">
 			<div class="flex items-center">
-				<a href="/" class="text-xl font-bold text-emerald-600 dark:text-emerald-400">
+				<a href="/" class="text-xl font-bold text-slate-800 dark:text-slate-200">
 					LifecycleProducts
 				</a>
 			</div>
@@ -26,7 +26,7 @@
 				{#each navItems as item}
 					<a
 						href={item.href}
-						class="text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium {$page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/') ? 'text-emerald-600 dark:text-emerald-400' : ''}"
+						class="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-medium {$page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/') ? 'text-slate-900 dark:text-slate-100 font-semibold' : ''}"
 					>
 						{item.label}
 					</a>
@@ -58,7 +58,7 @@
 					<a
 						href={item.href}
 						onclick={() => isMenuOpen = false}
-						class="block px-3 py-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors {$page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/') ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' : ''}"
+						class="block px-3 py-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors {$page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/') ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-semibold' : ''}"
 					>
 						{item.label}
 					</a>

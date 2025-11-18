@@ -31,7 +31,7 @@
 
 	// Cost breakdown data
 	const costBreakdownItems = [
-		{ label: 'Raw Materials', value: product.costBreakdown.rawMaterials, color: 'bg-emerald-600 dark:bg-emerald-700', textColor: 'text-emerald-700 dark:text-emerald-400' },
+		{ label: 'Raw Materials', value: product.costBreakdown.rawMaterials, color: 'bg-slate-600 dark:bg-slate-700', textColor: 'text-slate-700 dark:text-slate-400' },
 		{ label: 'Manufacturing', value: product.costBreakdown.manufacturing, color: 'bg-slate-500 dark:bg-slate-600', textColor: 'text-slate-600 dark:text-slate-400' },
 		{ label: 'Labor', value: product.costBreakdown.labor, color: 'bg-amber-600 dark:bg-amber-700', textColor: 'text-amber-700 dark:text-amber-400' },
 		{ label: 'Transportation', value: product.costBreakdown.transportation, color: 'bg-stone-500 dark:bg-stone-600', textColor: 'text-stone-600 dark:text-stone-400' },
@@ -50,7 +50,7 @@
 	<!-- Back Button -->
 	<a
 		href="/assessments"
-		class="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:underline mb-6"
+		class="inline-flex items-center text-slate-700 dark:text-slate-300 hover:underline mb-6"
 	>
 		<ArrowLeft class="w-4 h-4 mr-1" />
 		Back to Assessments
@@ -60,7 +60,7 @@
 	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
 			<div>
-				<span class="text-sm font-medium px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full">
+				<span class="text-sm font-medium px-3 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full">
 					{product.category}
 				</span>
 				<h1 class="text-3xl font-bold mt-3 mb-2">{product.name}</h1>

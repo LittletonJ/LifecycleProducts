@@ -53,7 +53,7 @@
 			</p>
 			<a
 				href="/assessments"
-				class="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
+				class="inline-flex items-center px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white font-medium rounded-lg transition-colors"
 			>
 				Browse Assessments
 				<ArrowRight class="w-5 h-5 ml-2" />
