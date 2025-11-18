@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeft, Heart, ShieldCheck, AlertTriangle, Sparkles } from 'lucide-svelte';
+	import { ArrowLeft, Heart, ShieldCheck, AlertTriangle, Sparkles, BookOpen } from 'lucide-svelte';
 </script>
 
 <svelte:head>
@@ -25,7 +25,17 @@
 		</p>
 	</div>
 
-	<div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 mb-8">
+	<!-- Table of Contents -->
+	<div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mb-8">
+		<h2 class="font-bold text-blue-900 dark:text-blue-300 mb-4">Table of Contents</h2>
+		<ul class="text-sm space-y-2 text-blue-800 dark:text-blue-300">
+			<li><a href="#priorities" class="hover:underline">→ What We Prioritize</a></li>
+			<li><a href="#health-categories" class="hover:underline">→ 8 Priority Health Categories</a></li>
+			<li><a href="#evaluation" class="hover:underline">→ How We Evaluate Health Impacts</a></li>
+		</ul>
+	</div>
+
+	<div id="priorities" class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 mb-8">
 		<h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300 mb-4">What We Prioritize</h2>
 		<p class="text-sm text-emerald-800 dark:text-emerald-200 mb-3">
 			Our health impact assessments focus on the most prevalent and harmful environmental exposures identified by global health research, particularly those with irreversible effects, especially for vulnerable populations like children and pregnant people.
@@ -34,6 +44,8 @@
 			Priority Categories (ordered by global disease burden and severity):
 		</p>
 	</div>
+
+	<h2 id="health-categories" class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6 mt-8">8 Priority Health Categories</h2>
 
 	<div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 mb-8">
 		<h3 class="font-bold mb-4 text-slate-900 dark:text-slate-100">1. Air Pollutants (Especially PM2.5)</h3>
@@ -142,7 +154,7 @@
 		</p>
 	</div>
 
-	<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6 mt-8">How We Evaluate Health Impacts</h2>
+	<h2 id="evaluation" class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6 mt-8">How We Evaluate Health Impacts</h2>
 
 	<div class="space-y-6">
 		<div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
@@ -177,102 +189,18 @@
 	</div>
 
 	<div class="mt-12 pt-8 border-t border-slate-300 dark:border-slate-600">
-		<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">Research Sources & References</h2>
-
-		<div class="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Global Disease Burden & Environmental Health</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Global Burden of Disease Study 2021, The Lancet (2024): "Global burden and strength of evidence for 88 risk factors in 204 countries and 811 subnational locations, 1990–2021"</li>
-					<li>World Health Organization (WHO): Global Burden of Disease Study 2019 - Environmental Risk Factors</li>
-					<li>State of Global Air 2024 Report: Air Quality and Health Impact Assessment</li>
-				</ul>
+		<div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800">
+			<div class="flex items-center space-x-3 mb-3">
+				<BookOpen class="w-5 h-5 text-emerald-600" />
+				<h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300">Research Sources</h2>
 			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Air Pollution (PM2.5)</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>California Air Resources Board: "Inhalable Particulate Matter and Health (PM2.5 and PM10)"</li>
-					<li>EPA: "Health and Environmental Effects of Particulate Matter (PM)"</li>
-					<li>JAMA Network Open (2022): "Burden of Cause-Specific Mortality Associated With PM2.5 Air Pollution in the United States"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Microplastics</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Stanford Medicine Insights (2025): "Microplastics in Body: Polluted Tiny Plastic Fragments"</li>
-					<li>Nature Medicine (2024): "Microplastics are everywhere — we need to understand how they affect human health"</li>
-					<li>ACS Environmental Health (2024): "Potential Health Impact of Microplastics"</li>
-					<li>Harvard Medicine Magazine: "Microplastics Everywhere"</li>
-					<li>MDPI Environmental Health Journal (2024): "Impact of Microplastics on Human Health"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Lead Exposure</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>American Academy of Pediatrics (AAP): "Lead Exposure in Children"</li>
-					<li>WHO Fact Sheets: "Lead Poisoning and Health"</li>
-					<li>American Academy of Child & Adolescent Psychiatry (AACAP): "Lead Exposure In Children Affects Brain And Behavior"</li>
-					<li>NIH/PMC Research: "Neurotoxicity and Outcomes from Developmental Lead Exposure" and "Neurotoxic Effects and Biomarkers of Lead Exposure"</li>
-					<li>CDC: "Lead Exposure Prevention Guidelines"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">PFAS ("Forever Chemicals")</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>U.S. EPA: "PFAS Emerging Contaminant Assessment"</li>
-					<li>National Institute of Environmental Health Sciences (NIEHS): "PFAS Health Effects"</li>
-					<li>Multiple epidemiological studies on PFAS and renal/hepatic function</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Endocrine-Disrupting Chemicals (BPA, Phthalates, Synthetic Fragrances)</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>NRDC: "9 Ways to Avoid Hormone-Disrupting Chemicals"</li>
-					<li>Frontiers in Toxicology (2025): "The impact of perfumes and cosmetic products on human health: a narrative review"</li>
-					<li>MDPI Journal (2024): "Synthetic Endocrine Disruptors in Fragranced Products"</li>
-					<li>Environmental Working Group (EWG): "What are phthalates?"</li>
-					<li>Cleveland Clinic: "What Are 'Hormone-Disrupting Chemicals'?"</li>
-					<li>NIH/PMC: "Endocrine Disruptors and Asthma-Associated Chemicals in Consumer Products"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Flame Retardants</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>National Institute of Environmental Health Sciences (NIEHS): "Flame Retardants"</li>
-					<li>Nature Environmental Chemistry Letters (2023): "Brominated flame retardants, a cornelian dilemma"</li>
-					<li>Oxford Academic/Endocrinology (2024): "Mechanisms of Flame Retardant Toxicity and Their Impacts on Anxiety and Cognition"</li>
-					<li>Journal of Exposure Science & Environmental Epidemiology (Nature): "Flame retardant exposure assessment"</li>
-					<li>PubMed: "Health toxicity effects of brominated flame retardants" and "Health consequences of exposure to brominated flame retardants"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Ultra-Processed Foods</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>BMJ (2024): "Ultra-processed food exposure and adverse health outcomes: umbrella review of epidemiological meta-analyses"</li>
-					<li>PubMed: "Ultra-processed foods increase noncommunicable chronic disease risk"</li>
-					<li>Yale Medicine: "Are Ultraprocessed Foods Bad for Your Health?"</li>
-					<li>American Medical Association (AMA): "What doctors wish patients knew about ultraprocessed foods"</li>
-					<li>World Cancer Research Fund: "Ultra-processed foods linked to increased cancer risk, diabetes, and heart disease"</li>
-					<li>NIH/NHLBI (2025): "Spotlight on UPFs: NIH explores link between ultra-processed foods and heart disease"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Pesticides & Agricultural Chemicals</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>World Health Organization (WHO): Pesticide Health Effects & Neurotoxicity</li>
-					<li>U.S. EPA: "Pesticide Health Effects"</li>
-					<li>Global Burden of Disease Studies: Pesticide-Related Health Outcomes</li>
-					<li>Environmental Health Perspectives: Pesticide exposure and developmental effects</li>
-				</ul>
-			</div>
+			<p class="text-sm text-emerald-800 dark:text-emerald-200 mb-4">
+				All sources, citations, and detailed references for this methodology are compiled on a comprehensive references page, which is maintained as a single authoritative source across all methodology sections.
+			</p>
+			<a href="/methodology/references" class="inline-flex items-center space-x-2 text-emerald-700 dark:text-emerald-300 hover:underline font-semibold">
+				<span>View All Research Sources & References</span>
+				<span class="text-lg">→</span>
+			</a>
 		</div>
 
 		<div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">

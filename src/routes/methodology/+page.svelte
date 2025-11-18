@@ -150,13 +150,13 @@
 		{/each}
 	</div>
 
-	<!-- Data Sources -->
-	<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6">
+	<!-- Data Sources & References -->
+	<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 mb-6">
 		<h2 class="text-xl font-bold mb-4">Data Sources & Methodology</h2>
 		<p class="text-slate-600 dark:text-slate-400 mb-4">
 			Our assessments are based on research from multiple sources, using order-of-magnitude estimates when precise data isn't available:
 		</p>
-		<ul class="space-y-2 text-slate-600 dark:text-slate-400">
+		<ul class="space-y-2 text-slate-600 dark:text-slate-400 mb-4">
 			<li>• <strong>"How Bad Are Bananas?"</strong> by Mike Berners-Lee - carbon footprint estimation methodology</li>
 			<li>• Published lifecycle assessment (LCA) studies</li>
 			<li>• Environmentally extended input-output (EEIO) models for spend-based estimates</li>
@@ -167,9 +167,26 @@
 			<li>• Downcycling research for recyclability penalties</li>
 			<li>• User reviews and satisfaction surveys</li>
 		</ul>
-		<p class="text-sm text-slate-500 dark:text-slate-400 mt-4">
+		<p class="text-sm text-slate-500 dark:text-slate-400">
 			When detailed data isn't available, we use material proxies and acknowledge uncertainty ranges.
 			A rough estimate that captures the right magnitude is more useful than no estimate at all.
 		</p>
+	</div>
+
+	<!-- Research Sources -->
+	<div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800">
+		<div class="flex items-start justify-between">
+			<div class="flex-1">
+				<h2 class="text-xl font-bold text-emerald-900 dark:text-emerald-300 mb-2">Comprehensive Research Sources</h2>
+				<p class="text-slate-700 dark:text-slate-300">
+					All sources, citations, and detailed references supporting our methodology sections are compiled on our comprehensive references page. This includes research on environmental impacts, health impacts, and global burden of disease studies that inform our prioritization.
+				</p>
+			</div>
+		</div>
+		<a href="/methodology/references" class="mt-4 inline-flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white rounded-lg font-semibold transition-colors">
+			<BookOpen class="w-4 h-4" />
+			<span>View All Research Sources & References</span>
+			<ArrowRight class="w-4 h-4" />
+		</a>
 	</div>
 </div>

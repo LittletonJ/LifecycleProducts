@@ -16,7 +16,8 @@
 		Smartphone,
 		Baby,
 		Flame,
-		Recycle
+		Recycle,
+		BookOpen
 	} from 'lucide-svelte';
 
 	// High-impact product categories - what to assess first
@@ -125,8 +126,20 @@
 		</p>
 	</div>
 
-	<!-- Environmental Impact Context -->
+	<!-- Table of Contents -->
 	<div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mb-8">
+		<h2 class="font-bold text-blue-900 dark:text-blue-300 mb-4">Table of Contents</h2>
+		<ul class="text-sm space-y-2 text-blue-800 dark:text-blue-300">
+			<li><a href="#env-context" class="hover:underline">→ Where Most Environmental Damage Occurs</a></li>
+			<li><a href="#product-categories" class="hover:underline">→ Highest Impact Product Categories</a></li>
+			<li><a href="#gas-potency" class="hover:underline">→ Greenhouse Gas Potency</a></li>
+			<li><a href="#estimation" class="hover:underline">→ Estimating Impact Without Data</a></li>
+			<li><a href="#recyclability" class="hover:underline">→ Recyclability Penalties</a></li>
+		</ul>
+	</div>
+
+	<!-- Environmental Impact Context -->
+	<div id="env-context" class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mb-8">
 		<h2 class="text-lg font-bold text-blue-900 dark:text-blue-300 mb-3">Where Most Environmental Damage Occurs</h2>
 		<p class="text-sm text-blue-800 dark:text-blue-200 mb-4">
 			Global environmental impact is concentrated in a few product categories and sectors. Understanding these priorities helps focus efforts where they matter most:
@@ -166,7 +179,7 @@
 	</div>
 
 	<!-- High Impact Product Categories -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="product-categories" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Scale class="w-5 h-5 mr-2 text-slate-500" />
 			Highest Impact Product Categories
@@ -227,7 +240,7 @@
 	</div>
 
 	<!-- Greenhouse Gas Potency -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="gas-potency" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Flame class="w-5 h-5 mr-2 text-slate-500" />
 			Not All Emissions Are Equal
@@ -285,7 +298,7 @@
 	</div>
 
 	<!-- Assessment Methodology Approaches -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="estimation" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Brain class="w-5 h-5 mr-2 text-slate-500" />
 			Estimating Impact Without Detailed Data
@@ -353,7 +366,7 @@
 	</div>
 
 	<!-- Recyclability Penalties -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="recyclability" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Recycle class="w-5 h-5 mr-2 text-slate-500" />
 			Recyclability Penalties (Downcycling)
@@ -449,77 +462,18 @@
 
 	<!-- Research Sources -->
 	<div class="mt-12 pt-8 border-t border-slate-300 dark:border-slate-600">
-		<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">Research Sources for Environmental Priorities</h2>
-
-		<div class="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Livestock & Animal Agriculture Emissions</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Clean Air Task Force (2024): "Accelerating climate solutions in agriculture"</li>
-					<li>EPA (2024): "Animal Agriculture Leads U.S Methane Emissions" — 36% of methane from animal agriculture</li>
-					<li>Inside Climate News (2025): "Climate-Warming Methane Emissions from the World's Biggest Livestock Companies" — 45 major companies emit ~1 billion tons CO₂e annually</li>
-					<li>Let's Talk Science: "Cows, Methane, and Climate Change" — Methane 80× potent over 20 years</li>
-				</ul>
+		<div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 mb-8">
+			<div class="flex items-center space-x-3 mb-3">
+				<BookOpen class="w-5 h-5 text-emerald-600" />
+				<h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300">Research Sources</h2>
 			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Food Waste Impact</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>UNFCCC: "Food loss and waste account for 8-10% of annual global greenhouse gas emissions"</li>
-					<li>Carbon Brief: "Food waste makes up 'half' of global food system emissions"</li>
-					<li>USDA: "Food Waste and its Links to Greenhouse Gases and Climate Change"</li>
-					<li>Our World in Data: "Food waste is responsible for 6% of global greenhouse gas emissions"</li>
-					<li>FAO Report: "Food wastage footprint & Climate Change"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Electronics Manufacturing & E-Waste</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>UC Irvine News (2022): "53% jump in e-waste greenhouse gas emissions between 2014, 2020"</li>
-					<li>Carbon Click: "The environmental impact of electronics production and disposal" — 80% of lifecycle emissions from manufacturing</li>
-					<li>Geneva Environment Network: "The Growing Environmental Risks of E-Waste"</li>
-					<li>Bulletin of the National Research Centre (2023): "Climate change implications of electronic waste"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Textile & Fashion Industry</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Microplastic shedding: 700,000 fibers per wash from synthetic fabrics (established textile research)</li>
-					<li>Water footprint: 2,700 liters per kg cotton (water footprint research)</li>
-					<li>Fast fashion cycle: 52 "micro-seasons" per year (industry analysis)</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Plastic Pollution</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>PBS (2023): "How Single Use Plastics Hurt Our Oceans and Warm Our Planet"</li>
-					<li>National Geographic: "The world's plastic pollution crisis, explained" — 33 billion pounds/year enter oceans</li>
-					<li>NOAA Ocean Service: "A Guide to Plastic in the Ocean" — 15-51 trillion microplastic particles</li>
-					<li>IUCN: "Plastic pollution" brief — 40% of plastic produced is single-use</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Greenhouse Gas Potency</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>IPCC (Intergovernmental Panel on Climate Change): Global warming potential calculations</li>
-					<li>EPA: Greenhouse gas equivalencies and potency factors</li>
-					<li>Assessment Framework based on established GWP factors (100-year horizon)</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Order-of-Magnitude Assessment</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Mike Berners-Lee: "How Bad Are Bananas? The Carbon Footprint of Everything"</li>
-					<li>ISO 14040/14044: Lifecycle Assessment Standards</li>
-					<li>Ecoinvent Database: Lifecycle Inventory data</li>
-					<li>GaBi Database: Environmental product lifecycle data</li>
-				</ul>
-			</div>
+			<p class="text-sm text-emerald-800 dark:text-emerald-200 mb-4">
+				All sources, citations, and detailed references for this assessment framework are compiled on a comprehensive references page, which is maintained as a single authoritative source across all methodology sections.
+			</p>
+			<a href="/methodology/references" class="inline-flex items-center space-x-2 text-emerald-700 dark:text-emerald-300 hover:underline font-semibold">
+				<span>View All Research Sources & References</span>
+				<span class="text-lg">→</span>
+			</a>
 		</div>
 
 		<div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">

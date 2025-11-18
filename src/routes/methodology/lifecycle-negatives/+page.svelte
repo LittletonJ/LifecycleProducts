@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeft, Factory, Leaf, Droplets, Trash2, Mountain, Wind } from 'lucide-svelte';
+	import { ArrowLeft, Factory, Leaf, Droplets, Trash2, Mountain, Wind, BookOpen } from 'lucide-svelte';
 </script>
 
 <svelte:head>
@@ -102,84 +102,18 @@
 	</div>
 
 	<div class="mt-12 pt-8 border-t border-slate-300 dark:border-slate-600">
-		<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">Research Sources & References</h2>
-
-		<div class="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Carbon Footprint & Climate Impact</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Clean Air Task Force (2024): "Accelerating climate solutions in agriculture: Why reducing methane from livestock is an urgent opportunity"</li>
-					<li>EPA Report (2024): "New EPA Report: Animal Agriculture Leads U.S Methane Emissions" — 36% of U.S. methane from animal agriculture</li>
-					<li>Inside Climate News (2025): "Climate-Warming Methane Emissions from the World's Biggest Livestock Companies"</li>
-					<li>UNFCCC: "Food loss and waste account for 8-10% of annual global greenhouse gas emissions"</li>
-					<li>USDA: "Food Waste and its Links to Greenhouse Gases and Climate Change"</li>
-					<li>Our World in Data: "Food waste is responsible for 6% of global greenhouse gas emissions"</li>
-				</ul>
+		<div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 mb-8">
+			<div class="flex items-center space-x-3 mb-3">
+				<BookOpen class="w-5 h-5 text-emerald-600" />
+				<h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300">Research Sources</h2>
 			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">E-Waste & Electronics Environmental Impact</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>UC Irvine News (2022): "UCI study finds 53 percent jump in e-waste greenhouse gas emissions between 2014, 2020"</li>
-					<li>Geneva Environment Network: "The Growing Environmental Risks of E-Waste"</li>
-					<li>Science Direct: "Disentangling the worldwide web of e-waste and climate change co-benefits"</li>
-					<li>Bulletin of the National Research Centre (2023): "Climate change implications of electronic waste: strategies for sustainable management"</li>
-					<li>Carbon Click: "The environmental impact of electronics production and disposal" — 80% of lifecycle emissions from manufacturing</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Water Usage & Pollution</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Water footprint research: 2,700 liters water per kg cotton (textile industry data)</li>
-					<li>FAO (Food & Agriculture Organization): Food water footprint assessments</li>
-					<li>Research studies on agricultural water depletion and aquifer strain</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Plastic Pollution & Waste</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>PBS (2023): "How Single Use Plastics Hurt Our Oceans and Warm Our Planet"</li>
-					<li>National Geographic: "The world's plastic pollution crisis, explained"</li>
-					<li>Duke University Environmental Policy Blog: "Single-Use Plastic and Its Effects on Our Oceans"</li>
-					<li>NOAA Ocean Service: "A Guide to Plastic in the Ocean"</li>
-					<li>Ocean Blue Project: "The Unintended Impact of Single-Use Plastics" — 33 billion pounds/year enter oceans</li>
-					<li>IUCN: "Plastic pollution" resource brief</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Livestock & Agricultural Emissions</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>University of Wisconsin Extension: "Methane emissions from livestock and climate change"</li>
-					<li>University of Nebraska Lincoln: "Advances in Methane Emission Estimation in Livestock"</li>
-					<li>EDF (Environmental Defense Fund): "Helping livestock farmers cut methane emissions"</li>
-					<li>Let's Talk Science: "Cows, Methane, and Climate Change"</li>
-					<li>EPA/SNEP: "Agriculture and Aquaculture: Food for Thought"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Flame Retardants & Chemical Pollution</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Green Science Policy Institute: "Flame Retardants in Furniture"</li>
-					<li>UC Riverside News (2025): "Toxic comeback looms for upholstered furniture"</li>
-					<li>NRDC: "The Fight Against Flame Retardants"</li>
-					<li>EWG: "Study: Replacing Furniture and Foam Reduces Levels of Toxic Flame Retardants"</li>
-					<li>Wiley Online Library: "Chemical exposure and flammability risks of upholstered furniture"</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Lifecycle Assessment Methodology</h3>
-				<ul class="list-disc pl-5 space-y-1">
-					<li>Mike Berners-Lee: "How Bad Are Bananas?" (order-of-magnitude assessment framework)</li>
-					<li>ISO 14040/14044: International standards for lifecycle assessment</li>
-					<li>Ecoinvent Database: Lifecycle inventory data for products and processes</li>
-					<li>GaBi Database: Environmental product lifecycle data</li>
-				</ul>
-			</div>
+			<p class="text-sm text-emerald-800 dark:text-emerald-200 mb-4">
+				All sources, citations, and detailed references for this methodology are compiled on a comprehensive references page, which is maintained as a single authoritative source across all methodology sections.
+			</p>
+			<a href="/methodology/references" class="inline-flex items-center space-x-2 text-emerald-700 dark:text-emerald-300 hover:underline font-semibold">
+				<span>View All Research Sources & References</span>
+				<span class="text-lg">→</span>
+			</a>
 		</div>
 
 		<div class="mt-8 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
