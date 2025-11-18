@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Menu, X } from 'lucide-svelte';
-	import ThemeToggle from './ThemeToggle.svelte';
 
 	let isMenuOpen = $state(false);
 
@@ -32,13 +31,11 @@
 						{item.label}
 					</a>
 				{/each}
-				<ThemeToggle />
-			</div>
+				</div>
 
 			<!-- Mobile menu button -->
 			<div class="md:hidden flex items-center space-x-2">
-				<ThemeToggle />
-				<button
+					<button
 					onclick={() => isMenuOpen = !isMenuOpen}
 					class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
 					aria-label="Toggle menu"
