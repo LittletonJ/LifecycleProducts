@@ -16,7 +16,8 @@
 		Smartphone,
 		Baby,
 		Flame,
-		Recycle
+		Recycle,
+		BookOpen
 	} from 'lucide-svelte';
 
 	// High-impact product categories - what to assess first
@@ -125,8 +126,60 @@
 		</p>
 	</div>
 
+	<!-- Table of Contents -->
+	<div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mb-8">
+		<h2 class="font-bold text-blue-900 dark:text-blue-300 mb-4">Table of Contents</h2>
+		<ul class="text-sm space-y-2 text-blue-800 dark:text-blue-300">
+			<li><a href="#env-context" class="hover:underline">→ Where Most Environmental Damage Occurs</a></li>
+			<li><a href="#product-categories" class="hover:underline">→ Highest Impact Product Categories</a></li>
+			<li><a href="#gas-potency" class="hover:underline">→ Greenhouse Gas Potency</a></li>
+			<li><a href="#estimation" class="hover:underline">→ Estimating Impact Without Data</a></li>
+			<li><a href="#recyclability" class="hover:underline">→ Recyclability Penalties</a></li>
+		</ul>
+	</div>
+
+	<!-- Environmental Impact Context -->
+	<div id="env-context" class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mb-8">
+		<h2 class="text-lg font-bold text-blue-900 dark:text-blue-300 mb-3">Where Most Environmental Damage Occurs</h2>
+		<p class="text-sm text-blue-800 dark:text-blue-200 mb-4">
+			Global environmental impact is concentrated in a few product categories and sectors. Understanding these priorities helps focus efforts where they matter most:
+		</p>
+		<div class="space-y-3 text-sm text-blue-800 dark:text-blue-200">
+			<div class="flex items-start space-x-3">
+				<div class="font-bold text-blue-900 dark:text-blue-300 flex-shrink-0">1.</div>
+				<div>
+					<strong>Livestock & Animal Agriculture</strong> — 36-40% of methane emissions; methane is 80× more potent than CO₂ over 20 years. 45 major livestock companies emit ~1 billion tons CO₂e annually (equivalent to Saudi Arabia's oil emissions).
+				</div>
+			</div>
+			<div class="flex items-start space-x-3">
+				<div class="font-bold text-blue-900 dark:text-blue-300 flex-shrink-0">2.</div>
+				<div>
+					<strong>Food Waste</strong> — 8-10% of global greenhouse gas emissions; if waste were a country, it would be the 3rd-largest emitter globally. 1.05 billion tons wasted annually.
+				</div>
+			</div>
+			<div class="flex items-start space-x-3">
+				<div class="font-bold text-blue-900 dark:text-blue-300 flex-shrink-0">3.</div>
+				<div>
+					<strong>Electronics Manufacturing & E-Waste</strong> — 80% of lifecycle emissions occur during manufacturing. E-waste emissions jumped 53% between 2014-2020. Only 17.4% properly recycled globally.
+				</div>
+			</div>
+			<div class="flex items-start space-x-3">
+				<div class="font-bold text-blue-900 dark:text-blue-300 flex-shrink-0">4.</div>
+				<div>
+					<strong>Textiles & Fast Fashion</strong> — Synthetic fabrics shed 700,000 microplastic fibers per wash. Cotton uses 2,700 liters of water per shirt. 52 "micro-seasons" encourage disposability.
+				</div>
+			</div>
+			<div class="flex items-start space-x-3">
+				<div class="font-bold text-blue-900 dark:text-blue-300 flex-shrink-0">5.</div>
+				<div>
+					<strong>Single-Use Plastics</strong> — 33 billion pounds enter oceans annually (2 garbage trucks/minute). 15-51 trillion microplastic particles in oceans. 40% of all plastic produced is single-use.
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- High Impact Product Categories -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="product-categories" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Scale class="w-5 h-5 mr-2 text-slate-500" />
 			Highest Impact Product Categories
@@ -187,7 +240,7 @@
 	</div>
 
 	<!-- Greenhouse Gas Potency -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="gas-potency" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Flame class="w-5 h-5 mr-2 text-slate-500" />
 			Not All Emissions Are Equal
@@ -245,7 +298,7 @@
 	</div>
 
 	<!-- Assessment Methodology Approaches -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="estimation" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Brain class="w-5 h-5 mr-2 text-slate-500" />
 			Estimating Impact Without Detailed Data
@@ -313,7 +366,7 @@
 	</div>
 
 	<!-- Recyclability Penalties -->
-	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+	<div id="recyclability" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
 			<Recycle class="w-5 h-5 mr-2 text-slate-500" />
 			Recyclability Penalties (Downcycling)
@@ -380,7 +433,7 @@
 	</div>
 
 	<!-- What to Focus On -->
-	<div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-6">
+	<div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-6 mb-8">
 		<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center">
 			<Zap class="w-5 h-5 mr-2 text-slate-500" />
 			Where to Start
@@ -404,6 +457,29 @@
 					<li>Buy secondhand when possible (clothing, furniture, electronics)</li>
 				</ul>
 			</div>
+		</div>
+	</div>
+
+	<!-- Research Sources -->
+	<div class="mt-12 pt-8 border-t border-slate-300 dark:border-slate-600">
+		<div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 mb-8">
+			<div class="flex items-center space-x-3 mb-3">
+				<BookOpen class="w-5 h-5 text-emerald-600" />
+				<h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300">Research Sources</h2>
+			</div>
+			<p class="text-sm text-emerald-800 dark:text-emerald-200 mb-4">
+				All sources, citations, and detailed references for this assessment framework are compiled on a comprehensive references page, which is maintained as a single authoritative source across all methodology sections.
+			</p>
+			<a href="/methodology/references" class="inline-flex items-center space-x-2 text-emerald-700 dark:text-emerald-300 hover:underline font-semibold">
+				<span>View All Research Sources & References</span>
+				<span class="text-lg">→</span>
+			</a>
+		</div>
+
+		<div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+			<p class="text-sm text-blue-800 dark:text-blue-200">
+				<strong>Assessment Framework Philosophy:</strong> This framework prioritizes product categories and environmental impacts based on peer-reviewed research, global burden assessments, and scientific consensus. We focus on categories where individual consumer choices have the potential to create meaningful cumulative impact when multiplied across many people. The ranking reflects both the severity of harm and the practical ease of identifying and choosing better alternatives.
+			</p>
 		</div>
 	</div>
 </div>
