@@ -11,11 +11,11 @@
 	const percentage = (score / maxScore) * 100;
 
 	function getColor(pct: number): string {
-		if (pct >= 80) return 'bg-emerald-500';
-		if (pct >= 60) return 'bg-lime-500';
-		if (pct >= 40) return 'bg-yellow-500';
-		if (pct >= 20) return 'bg-orange-500';
-		return 'bg-red-500';
+		if (pct >= 80) return 'bg-emerald-600 dark:bg-emerald-700';
+		if (pct >= 60) return 'bg-slate-500 dark:bg-slate-600';
+		if (pct >= 40) return 'bg-amber-600 dark:bg-amber-700';
+		if (pct >= 20) return 'bg-stone-600 dark:bg-stone-700';
+		return 'bg-stone-700 dark:bg-stone-800';
 	}
 </script>
 

@@ -25,15 +25,15 @@
 	<article class="p-6">
 		<div class="flex items-start justify-between mb-4">
 			<div>
-				<span class="text-xs font-medium px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full">
+				<span class="text-xs font-medium px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full">
 					{product.category}
 				</span>
-				<h3 class="text-lg font-semibold mt-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+				<h3 class="text-lg font-semibold mt-2 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
 					{product.name}
 				</h3>
 			</div>
 			<div class="text-right">
-				<div class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+				<div class="text-2xl font-bold text-slate-700 dark:text-slate-300">
 					{getOverallScore(product)}
 				</div>
 				<div class="text-xs text-slate-500">Overall</div>
@@ -46,15 +46,15 @@
 
 		<div class="space-y-3 mb-4">
 			<div class="flex items-center space-x-2 text-sm">
-				<Heart class="w-4 h-4 text-rose-500" />
+				<Heart class="w-4 h-4 text-stone-600 dark:text-stone-400" />
 				<ScoreBar score={product.assessment.healthImpacts.score} label="Health" />
 			</div>
 			<div class="flex items-center space-x-2 text-sm">
-				<Star class="w-4 h-4 text-amber-500" />
+				<Star class="w-4 h-4 text-slate-600 dark:text-slate-400" />
 				<ScoreBar score={Math.round((product.assessment.useAndQuality.durability + product.assessment.useAndQuality.functionality + product.assessment.useAndQuality.userSatisfaction) / 3 * 10) / 10} label="Quality" />
 			</div>
 			<div class="flex items-center space-x-2 text-sm">
-				<Leaf class="w-4 h-4 text-emerald-500" />
+				<Leaf class="w-4 h-4 text-slate-700 dark:text-slate-300" />
 				<ScoreBar score={Math.round(product.assessment.positives.recyclability.effectiveRecyclability / 10)} label="Sustainability" />
 			</div>
 		</div>

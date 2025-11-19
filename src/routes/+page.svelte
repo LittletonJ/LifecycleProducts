@@ -12,12 +12,12 @@
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-slate-900 dark:to-emerald-900/20">
+<section class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-stone-50 dark:from-slate-900 dark:to-slate-800">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
 		<div class="text-center">
 			<h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
 				Know Your Product's
-				<span class="text-emerald-600 dark:text-emerald-400">True Impact</span>
+				<span class="text-slate-700 dark:text-slate-300">True Impact</span>
 			</h1>
 			<p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
 				Comprehensive lifecycle assessments that reveal the environmental footprint, health impacts,
@@ -26,7 +26,7 @@
 			<div class="flex flex-col sm:flex-row gap-4 justify-center">
 				<a
 					href="/assessments"
-					class="inline-flex items-center justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
+					class="inline-flex items-center justify-center px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white font-medium rounded-lg transition-colors"
 				>
 					<span>View Assessments</span>
 					<ArrowRight class="w-5 h-5 ml-2" />
@@ -54,7 +54,7 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-4">
+				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 mb-4">
 					<Leaf class="w-6 h-6" />
 				</div>
 				<h3 class="font-semibold mb-2">Lifecycle Impact</h3>
@@ -64,7 +64,7 @@
 			</div>
 
 			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 mb-4">
+				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-900/30 text-stone-600 dark:text-stone-400 mb-4">
 					<Heart class="w-6 h-6" />
 				</div>
 				<h3 class="font-semibold mb-2">Health Impacts</h3>
@@ -74,7 +74,7 @@
 			</div>
 
 			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-4">
+				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-900/30 text-stone-600 dark:text-stone-400 mb-4">
 					<Scale class="w-6 h-6" />
 				</div>
 				<h3 class="font-semibold mb-2">Use & Quality</h3>
@@ -84,7 +84,7 @@
 			</div>
 
 			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-4">
+				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-900/30 text-stone-600 dark:text-stone-400 mb-4">
 					<Recycle class="w-6 h-6" />
 				</div>
 				<h3 class="font-semibold mb-2">Positive Impacts</h3>
@@ -103,7 +103,7 @@
 			<h2 class="text-3xl font-bold">Featured Assessments</h2>
 			<a
 				href="/assessments"
-				class="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:underline font-medium"
+				class="inline-flex items-center text-slate-700 dark:text-slate-300 hover:underline font-medium"
 			>
 				<span>View All</span>
 				<ArrowRight class="w-4 h-4 ml-1" />

@@ -37,14 +37,14 @@
 				type="text"
 				bind:value={searchQuery}
 				placeholder="Search products..."
-				class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
+				class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-colors"
 			/>
 		</div>
 		<div class="relative">
 			<Filter class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
 			<select
 				bind:value={selectedCategory}
-				class="pl-10 pr-8 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none appearance-none cursor-pointer"
+				class="pl-10 pr-8 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none appearance-none cursor-pointer"
 			>
 				<option value="all">All Categories</option>
 				{#each categories as category}

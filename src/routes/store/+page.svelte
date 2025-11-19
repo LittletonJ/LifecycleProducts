@@ -9,7 +9,7 @@
 
 <div class="min-h-[60vh] flex items-center justify-center px-4">
 	<div class="max-w-2xl text-center">
-		<div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-6">
+		<div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 mb-6">
 			<Store class="w-10 h-10" />
 		</div>
 
@@ -22,7 +22,7 @@
 
 		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
 			<h2 class="text-xl font-semibold mb-4 flex items-center justify-center">
-				<Clock class="w-5 h-5 mr-2 text-emerald-600 dark:text-emerald-400" />
+				<Clock class="w-5 h-5 mr-2 text-slate-600 dark:text-slate-400" />
 				What to Expect
 			</h2>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
@@ -53,7 +53,7 @@
 			</p>
 			<a
 				href="/assessments"
-				class="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
+				class="inline-flex items-center px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white font-medium rounded-lg transition-colors"
 			>
 				Browse Assessments
 				<ArrowRight class="w-5 h-5 ml-2" />
