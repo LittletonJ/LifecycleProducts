@@ -36,6 +36,7 @@
 		</div>
 		<div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700 text-center text-sm text-slate-500">
 			<p>&copy; {new Date().getFullYear()} LifecycleProducts. Built with care for our planet.</p>
+			<p class="mt-2 italic">This is a concept site for demonstration purposes only.</p>
 		</div>
 	</div>
 </footer>
