@@ -1,64 +1,73 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Menu, X } from 'lucide-svelte';
+	import ThemeToggle from './ThemeToggle.svelte';
 
 	let isMenuOpen = $state(false);
 
 	const navItems = [
-		{ href: '/', label: 'Home' },
 		{ href: '/assessments', label: 'Assessments' },
 		{ href: '/methodology', label: 'Methodology' },
 		{ href: '/store', label: 'Store' }
 	];
+
+	function isActive(href: string): boolean {
+		return $page.url.pathname === href || $page.url.pathname.startsWith(href + '/');
+	}
 </script>
 
-<nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="flex justify-between h-16">
-			<div class="flex items-center">
-				<a href="/" class="text-xl font-bold text-slate-800 dark:text-slate-200">
-					LifecycleProducts
-				</a>
-			</div>
+<nav class="hairline sticky top-0 z-50 border-b bg-stone-50/90 backdrop-blur-md dark:bg-[#171412]/90">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="flex h-16 items-center justify-between">
+			<a href="/" class="flex items-center gap-2.5">
+				<span class="inline-block h-2 w-2 rounded-full bg-moss-500"></span>
+				<span class="font-display text-lg text-stone-800 dark:text-stone-100">Lifecycle</span>
+			</a>
 
-			<!-- Desktop Navigation -->
-			<div class="hidden md:flex items-center space-x-8">
+			<!-- Desktop navigation -->
+			<div class="hidden items-center gap-8 md:flex">
 				{#each navItems as item}
 					<a
 						href={item.href}
-						class="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-medium {$page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/') ? 'text-slate-900 dark:text-slate-100 font-semibold' : ''}"
+						class="text-sm transition-colors {isActive(item.href)
+							? 'text-stone-900 dark:text-stone-100'
+							: 'text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200'}"
 					>
 						{item.label}
 					</a>
 				{/each}
-				</div>
+				<ThemeToggle />
+			</div>
 
 			<!-- Mobile menu button -->
-			<div class="md:hidden flex items-center space-x-2">
-					<button
-					onclick={() => isMenuOpen = !isMenuOpen}
-					class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+			<div class="flex items-center gap-2 md:hidden">
+				<ThemeToggle />
+				<button
+					onclick={() => (isMenuOpen = !isMenuOpen)}
+					class="rounded-lg p-2 text-stone-600 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800"
 					aria-label="Toggle menu"
 				>
 					{#if isMenuOpen}
-						<X class="w-6 h-6" />
+						<X class="h-5 w-5" />
 					{:else}
-						<Menu class="w-6 h-6" />
+						<Menu class="h-5 w-5" />
 					{/if}
 				</button>
 			</div>
 		</div>
 	</div>
 
-	<!-- Mobile Navigation -->
+	<!-- Mobile navigation -->
 	{#if isMenuOpen}
-		<div class="md:hidden border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
-			<div class="px-4 py-2 space-y-1">
+		<div class="hairline border-t bg-stone-50 md:hidden dark:bg-[#171412]">
+			<div class="space-y-1 px-6 py-3">
 				{#each navItems as item}
 					<a
 						href={item.href}
-						onclick={() => isMenuOpen = false}
-						class="block px-3 py-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors {$page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/') ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-semibold' : ''}"
+						onclick={() => (isMenuOpen = false)}
+						class="block rounded-md px-3 py-2 text-sm {isActive(item.href)
+							? 'text-stone-900 dark:text-stone-100'
+							: 'text-stone-500 dark:text-stone-400'}"
 					>
 						{item.label}
 					</a>

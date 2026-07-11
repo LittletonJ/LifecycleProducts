@@ -1,9 +1,70 @@
+/**
+ * Product assessment data.
+ *
+ * The core idea of this evaluation system: an "eco" product is never good or
+ * bad in isolation. It is only better or worse than the thing it replaces,
+ * under real usage habits. Every assessment therefore carries:
+ *
+ *  - a baseline comparison (what habit does this actually replace?)
+ *  - a break-even analysis (how long until it beats that baseline, if ever?)
+ *  - use-phase impacts (washing, energy, maintenance — often dominant)
+ *  - an honest verdict (including "this is mostly marketing")
+ *  - a confidence level and the sources behind the numbers
+ */
+
+export type VerdictTier = 'genuine' | 'conditional' | 'marginal';
+
+export type Achievability = 'easy' | 'realistic' | 'demanding' | 'never';
+
+export interface Source {
+	title: string;
+	org: string;
+	year: number;
+	url: string;
+}
+
+export interface Verdict {
+	tier: VerdictTier;
+	headline: string; // one honest sentence
+	bottomLine: string; // short plain-language summary
+	caveats: string[]; // the things marketing won't tell you
+	smarterMove?: string; // the genuinely best option, if it isn't this product
+}
+
+export interface BreakEven {
+	value: number | null; // null = no break-even exists; 0 = immediate (like-for-like swap)
+	unit: 'uses' | 'months' | 'years';
+	against: string; // the habit assumed in the comparison
+	achievability: Achievability;
+	note: string;
+}
+
+export interface Comparison {
+	baseline: string; // the conventional product/habit this replaces
+	baselineNote: string;
+	productionCarbon: number; // kg CO2e to manufacture this product
+	baselineAnnualCarbon: number; // kg CO2e/year of the baseline habit
+	breakEven: BreakEven;
+}
+
+export interface UsePhase {
+	shareOfFootprint: number; // % of lifetime footprint that occurs during use (washing, energy, upkeep)
+	drivers: string[];
+	hygiene: { risk: 'low' | 'medium' | 'high'; note: string };
+	careRequired: string; // what the advertised lifetime actually depends on
+}
+
+export interface Confidence {
+	level: 'high' | 'medium' | 'low';
+	note: string;
+}
+
 export interface LifecycleNegatives {
-	carbon: number; // kg CO2e
-	water: number; // liters
+	carbon: number; // kg CO2e (production, cradle-to-gate)
+	water: number; // liters (irrigation/process "blue" water, not rainfall)
 	waste: number; // kg
 	landUse: number; // m²
-	pollution: number; // 1-10 scale
+	pollution: number; // 1-10 scale (10 = worst)
 }
 
 export interface RecyclabilityInfo {
@@ -11,7 +72,7 @@ export interface RecyclabilityInfo {
 	materialType: 'metal' | 'glass' | 'paper' | 'natural' | 'plastic' | 'mixed' | 'composite';
 	downcyclingPenalty: number; // 0-1 penalty factor (0 = no penalty, 1 = complete penalty)
 	effectiveRecyclability: number; // calculated: percentage * (1 - downcyclingPenalty)
-	notes: string; // explanation of penalty
+	notes: string;
 }
 
 export interface LifecyclePositives {
@@ -23,18 +84,22 @@ export interface LifecyclePositives {
 
 export interface CostBreakdown {
 	rawMaterials: number; // percentage
-	manufacturing: number; // percentage
-	labor: number; // percentage
-	transportation: number; // percentage
-	marketing: number; // percentage
-	retail: number; // percentage
-	profit: number; // percentage
+	manufacturing: number;
+	labor: number;
+	transportation: number;
+	marketing: number;
+	retail: number;
+	profit: number;
 }
 
 export interface Assessment {
 	negatives: LifecycleNegatives;
 	positives: LifecyclePositives;
-	lifetime: number; // years
+	lifetime: number; // years (realistic, not aspirational)
+	comparison: Comparison;
+	usePhase: UsePhase;
+	verdict: Verdict;
+	confidence: Confidence;
 	healthImpacts: {
 		score: number; // 1-10 (10 being safest)
 		concerns: string[];
@@ -54,262 +119,662 @@ export interface Product {
 	description: string;
 	imageUrl: string;
 	price: number; // USD
-	usesPerYear: number; // estimated annual uses
+	usesPerYear: number;
 	costBreakdown: CostBreakdown;
 	assessment: Assessment;
+	sources: Source[];
 }
+
+export const verdictLabels: Record<VerdictTier, string> = {
+	genuine: 'Genuinely better',
+	conditional: 'Depends on your habits',
+	marginal: 'Mostly marketing'
+};
 
 export const products: Product[] = [
 	{
 		id: 'bamboo-toothbrush',
 		name: 'Bamboo Toothbrush',
 		category: 'Personal Care',
-		description: 'Biodegradable toothbrush with bamboo handle and charcoal-infused bristles',
+		description: 'Manual toothbrush with a bamboo handle and nylon bristles',
 		imageUrl: '/images/bamboo-toothbrush.svg',
-		price: 5.00,
-		usesPerYear: 730, // 2x daily brushing
+		price: 5.0,
+		usesPerYear: 730,
 		costBreakdown: {
-			rawMaterials: 25,
-			manufacturing: 15,
-			labor: 20,
-			transportation: 10,
-			marketing: 10,
-			retail: 12,
+			rawMaterials: 15,
+			manufacturing: 20,
+			labor: 15,
+			transportation: 12,
+			marketing: 15,
+			retail: 15,
 			profit: 8
 		},
 		assessment: {
 			negatives: {
-				carbon: 0.8,
-				water: 12,
+				carbon: 0.2,
+				water: 10,
 				waste: 0.015,
-				landUse: 0.02,
+				landUse: 0.05,
 				pollution: 2
 			},
 			positives: {
-				livingWages: true,
-				environmentalImprovements: ['Biodegradable handle', 'Sustainable bamboo sourcing', 'Plastic-free packaging'],
+				livingWages: false,
+				environmentalImprovements: [
+					'Meaningfully lower climate impact than a virgin-plastic manual brush (per the BDJ toothbrush LCA)',
+					'Bamboo grows fast without irrigation or replanting',
+					'Usually paper packaging instead of plastic blisters'
+				],
 				recyclability: {
-					percentage: 85,
-					materialType: 'natural',
-					downcyclingPenalty: 0,
-					effectiveRecyclability: 85,
-					notes: 'Handle is compostable bamboo. Bristles may be nylon (check brand). Natural materials maintain value through composting.'
+					percentage: 60,
+					materialType: 'composite',
+					downcyclingPenalty: 0.4,
+					effectiveRecyclability: 36,
+					notes:
+						'The handle only composts if you pull out the nylon bristles with pliers first — almost nobody does. Landfilled whole, the bamboo decays anaerobically and can emit methane, eroding the "natural end-of-life" story.'
 				},
 				repairability: 1
 			},
 			lifetime: 0.25,
+			comparison: {
+				baseline: 'Conventional plastic manual toothbrush',
+				baselineNote:
+					'Both are replaced every ~3 months and used identically — a like-for-like swap, not an investment. The much bigger fork in the road is manual vs. electric: the same LCA found an electric brush has ~11× the climate impact of a bamboo one.',
+				productionCarbon: 0.2,
+				baselineAnnualCarbon: 5,
+				breakEven: {
+					value: 0,
+					unit: 'uses',
+					against: 'a plastic manual brush replaced on the same schedule',
+					achievability: 'easy',
+					note: 'No payback needed — the swap saves roughly 4 kg CO2e per year versus virgin plastic (medium confidence on the absolute number). Real, but tiny: about the footprint of driving 15–20 km. Skipping an electric brush saves ~10× more.'
+				}
+			},
+			usePhase: {
+				shareOfFootprint: 55,
+				drivers: [
+					'Running the tap while brushing wastes more water than any handle material saves',
+					'Toothpaste production and packaging exceed the brush footprint over a year'
+				],
+				hygiene: {
+					risk: 'medium',
+					note: 'Bamboo absorbs water — the handle can mold at the base if it sits wet in a cup. It needs to dry fully between uses; plastic does not. Some handles get borax or carbonization anti-mold treatments that brands rarely disclose.'
+				},
+				careRequired: 'Store upright to dry fully between uses; replace every 3 months like any brush.'
+			},
+			verdict: {
+				tier: 'marginal',
+				headline: 'Better than virgin plastic — but not the way it\'s marketed',
+				bottomLine:
+					'The peer-reviewed LCA does show a real climate advantage over a virgin-plastic manual brush. But the marketing is dishonest: the bristles are nylon, "compostable" fails in practice (landfilled bamboo can emit methane), and a plastic brush with a replaceable head scored just as well. The absolute stakes — a few kg CO2e a year — are among the smallest environmental decisions you will make.',
+				caveats: [
+					'Bristles are plastic and must be pulled out with pliers before composting — almost nobody does',
+					'"Biodegradable" in a landfill can mean anaerobic decay releasing methane',
+					'Statistically tied with a replaceable-head plastic brush; a recycled-plastic brush modeled even better',
+					'Bamboo farmland carries a land-use cost the "it\'s just grass" framing hides',
+					'Charcoal-infused bristles have no proven dental benefit'
+				],
+				smarterMove:
+					'The biggest real decision is skipping the electric brush (~11× the climate impact). Among manuals, a replaceable-head brush minimizes material per use. And turn off the tap — it outweighs any handle choice.'
+			},
+			confidence: {
+				level: 'medium',
+				note: 'Rankings and ratios (manual ≪ electric; bamboo ≈ replaceable-head) are high-confidence from the BDJ LCA; absolute kg CO2e values are medium-confidence and brand-dependent.'
+			},
 			healthImpacts: {
-				score: 9,
-				concerns: [],
-				benefits: ['BPA-free', 'Natural antimicrobial properties']
+				score: 8,
+				concerns: [
+					'Handle can harbor mold if not dried between uses',
+					'Anti-mold treatments and coatings are rarely disclosed'
+				],
+				benefits: ['Cleans identically to a plastic manual brush']
 			},
 			useAndQuality: {
-				durability: 7,
+				durability: 6,
 				functionality: 8,
-				userSatisfaction: 8
+				userSatisfaction: 7
 			}
-		}
+		},
+		sources: [
+			{
+				title: 'Combining evidence-based healthcare with environmental sustainability: using the toothbrush as a model',
+				org: 'British Dental Journal (Lyne et al.)',
+				year: 2020,
+				url: 'https://www.nature.com/articles/s41415-020-1981-0'
+			},
+			{
+				title: 'Life cycle assessment of manual toothbrush materials',
+				org: 'Discover Environment (Springer)',
+				year: 2024,
+				url: 'https://link.springer.com/article/10.1007/s44274-024-00119-0'
+			},
+			{
+				title: 'Bamboo toothbrushes aren\'t the most environmentally friendly option',
+				org: 'Dentistry Today',
+				year: 2020,
+				url: 'https://www.dentistrytoday.com/bamboo-toothbrushes-aren-t-the-most-environmentally-friendly-option/'
+			}
+		]
 	},
 	{
 		id: 'stainless-water-bottle',
 		name: 'Stainless Steel Water Bottle',
 		category: 'Drinkware',
-		description: 'Double-walled insulated bottle that keeps drinks cold for 24h or hot for 12h',
+		description: 'Double-walled insulated 500 ml bottle',
 		imageUrl: '/images/water-bottle.svg',
-		price: 35.00,
-		usesPerYear: 365, // daily use
+		price: 35.0,
+		usesPerYear: 365,
 		costBreakdown: {
-			rawMaterials: 30,
+			rawMaterials: 25,
 			manufacturing: 20,
-			labor: 15,
+			labor: 12,
 			transportation: 8,
-			marketing: 12,
-			retail: 10,
+			marketing: 18,
+			retail: 12,
 			profit: 5
 		},
 		assessment: {
 			negatives: {
-				carbon: 8.5,
-				water: 280,
-				waste: 0.45,
-				landUse: 0.15,
+				carbon: 4,
+				water: 260,
+				waste: 0.4,
+				landUse: 0.1,
 				pollution: 4
 			},
 			positives: {
-				livingWages: true,
-				environmentalImprovements: ['Replaces 167 plastic bottles/year', 'Infinitely recyclable material'],
+				livingWages: false,
+				environmentalImprovements: [
+					'Can displace hundreds of single-use bottles per year — if you had that habit',
+					'Stainless steel recycles indefinitely without quality loss',
+					'No microplastic shedding, unlike single-use and reusable plastic'
+				],
 				recyclability: {
-					percentage: 100,
+					percentage: 90,
 					materialType: 'metal',
-					downcyclingPenalty: 0,
-					effectiveRecyclability: 100,
-					notes: 'Stainless steel is infinitely recyclable without quality loss. One of the best materials for true circular economy.'
+					downcyclingPenalty: 0.05,
+					effectiveRecyclability: 85.5,
+					notes:
+						'The steel body recycles indefinitely. The plastic lid, gasket, and vacuum-seal construction are the weak points — in practice the bottle goes in as mixed scrap.'
 				},
 				repairability: 3
 			},
-			lifetime: 10,
+			lifetime: 8,
+			comparison: {
+				baseline: 'What you were actually drinking from before',
+				baselineNote:
+					'The baseline changes everything here. Against a daily bottled-water habit (~0.09 kg CO2e per 500 ml PET bottle), the steel bottle wins within weeks. Against tap water in a glass you already own, it never wins — the glass had no footprint to beat.',
+				productionCarbon: 4,
+				baselineAnnualCarbon: 33,
+				breakEven: {
+					value: 25,
+					unit: 'uses',
+					against: 'buying one 500 ml bottled water per day',
+					achievability: 'realistic',
+					note: 'UNEP\'s LCA meta-review puts the carbon break-even at roughly 10–30 uses — a few weeks for a daily bottled-water buyer. But on metal-resource-depletion metrics it takes hundreds of uses, and versus tap water in an existing glass there is no break-even at all.'
+				}
+			},
+			usePhase: {
+				shareOfFootprint: 45,
+				drivers: [
+					'Washing dominates: heating wash water is often the largest lifetime contributor in bottle LCAs',
+					'Frequent hot hand-washing is the worst case — worse than full, efficient dishwasher loads — and most insulated bottles are hand-wash-only'
+				],
+				hygiene: {
+					risk: 'medium',
+					note: 'Studies find tens of thousands of bacteria per mL in bottles that aren\'t washed daily, and coliform bacteria in over 20% of sampled bottles. Biofilm hides in threads, straws, and gaskets. Honest hygiene means daily washing — which is exactly the energy the LCAs penalize.'
+				},
+				careRequired:
+					'Wash daily (efficiently — full dishwasher loads or cool hand-wash), disassemble and deep-clean the lid weekly, and keep this one bottle for years. Every replacement or duplicate resets the payback clock.'
+			},
+			verdict: {
+				tier: 'conditional',
+				headline: 'A win only if it replaces a bottled-water habit',
+				bottomLine:
+					'This purchase is a loan you repay through avoided single-use bottles: a fast payback if you actually bought bottled water daily, and a debt that never clears if you already drank tap. The two things marketing never mentions: washing energy can rival the manufacturing footprint, and surveys show people own 4–7 of these and half replace them within a year — most bottles never earn back their steel.',
+				caveats: [
+					'Never breaks even against tap water in a cup you already own',
+					'Hot hand-washing can erase much of the reuse benefit — and most insulated bottles can\'t go in the dishwasher',
+					'Owners average 4–7 bottles; ~51% replace within a year, often over odor — each duplicate restarts the math',
+					'Unwashed for a few days, it\'s dirtier than the disposable it replaced',
+					'On resource-depletion metrics, steel needs hundreds of uses to win'
+				],
+				smarterMove:
+					'Use any cup or bottle you already own. Starting from zero and needing portability? Buy one — secondhand if you can — and keep it for a decade.'
+			},
+			confidence: {
+				level: 'medium',
+				note: 'Break-even range (low tens of uses for carbon) is well supported by UNEP\'s meta-review. Absolute production CO2e spans an order of magnitude across sources (~1–5 kg for insulated bottles); washing-behavior assumptions drive most of the spread.'
+			},
 			healthImpacts: {
-				score: 10,
-				concerns: [],
-				benefits: ['No chemical leaching', 'No microplastics', 'Food-grade steel']
+				score: 8,
+				concerns: [
+					'Rapid biofilm growth without daily washing; coliform found in >20% of sampled bottles',
+					'Lid gaskets and straws trap mold'
+				],
+				benefits: [
+					'No chemical leaching from food-grade steel',
+					'No microplastics, unlike plastic bottles'
+				]
 			},
 			useAndQuality: {
 				durability: 9,
 				functionality: 9,
-				userSatisfaction: 9
+				userSatisfaction: 8
 			}
-		}
+		},
+		sources: [
+			{
+				title: 'Single-use plastic bottles and their alternatives: Recommendations from Life Cycle Assessments',
+				org: 'UNEP / Life Cycle Initiative',
+				year: 2020,
+				url: 'https://www.lifecycleinitiative.org/library/single-use-plastic-bottles-and-their-alternatives-recommendations-from-life-cycle-assessments/'
+			},
+			{
+				title: 'How sustainable and safe is drinking from refill-and-reuse bottles? An LCA and microbiological analysis',
+				org: 'Science of the Total Environment',
+				year: 2025,
+				url: 'https://www.sciencedirect.com/science/article/pii/S001393512502465X'
+			},
+			{
+				title: 'The Cleanliness of Reusable Water Bottles',
+				org: 'Food Protection Trends',
+				year: 2017,
+				url: 'https://www.foodprotection.org/members/fpt-archive-articles/2017-11-the-cleanliness-of-reusable-water-bottles-how-contamination-levels-are-affected-by-bottle-us/'
+			},
+			{
+				title: 'Losing the bottle: methodology',
+				org: 'Green Alliance',
+				year: 2021,
+				url: 'https://green-alliance.org.uk/wp-content/uploads/2021/11/losing_the_bottle_methodology.pdf'
+			}
+		]
 	},
 	{
 		id: 'organic-cotton-tshirt',
 		name: 'Organic Cotton T-Shirt',
 		category: 'Clothing',
-		description: 'Fair-trade certified organic cotton t-shirt with natural dyes',
+		description: 'Fair-trade certified organic cotton t-shirt',
 		imageUrl: '/images/tshirt.svg',
-		price: 30.00,
-		usesPerYear: 52, // worn once per week
+		price: 30.0,
+		usesPerYear: 52,
 		costBreakdown: {
-			rawMaterials: 20,
-			manufacturing: 12,
-			labor: 30,
+			rawMaterials: 15,
+			manufacturing: 15,
+			labor: 25,
 			transportation: 8,
-			marketing: 10,
-			retail: 15,
+			marketing: 15,
+			retail: 17,
 			profit: 5
 		},
 		assessment: {
 			negatives: {
-				carbon: 6.2,
-				water: 2700,
-				waste: 0.8,
-				landUse: 8.5,
+				carbon: 3.5,
+				water: 480,
+				waste: 0.7,
+				landUse: 10,
 				pollution: 3
 			},
 			positives: {
 				livingWages: true,
-				environmentalImprovements: ['No pesticides', 'Natural dyes', 'Compostable at end of life'],
+				environmentalImprovements: [
+					'No synthetic pesticides — a real reduction in farm toxicity, ecotoxicity, and worker exposure',
+					'Better-verified labor conditions under fair-trade certification',
+					'Pure cotton sheds no microplastics in the wash, unlike polyester'
+				],
 				recyclability: {
-					percentage: 75,
+					percentage: 70,
 					materialType: 'natural',
-					downcyclingPenalty: 0.1,
-					effectiveRecyclability: 67.5,
-					notes: 'Cotton can be recycled but fiber length shortens each cycle. Pure cotton without synthetic blends composts well. Small penalty for fiber degradation.'
+					downcyclingPenalty: 0.35,
+					effectiveRecyclability: 45.5,
+					notes:
+						'Textile-to-textile recycling barely exists at scale; most "recycled" clothing becomes rags and insulation. Pure cotton composts, but only if it actually reaches a compost stream.'
 				},
 				repairability: 8
 			},
-			lifetime: 3,
+			lifetime: 4,
+			comparison: {
+				baseline: 'Conventional cotton t-shirt worn the same number of times',
+				baselineNote:
+					'Organic vs. conventional is a farming difference, not a fiber difference — and fiber is only ~13% of a shirt\'s lifecycle CO2. Manufacturing energy (~50%) and your washing habits (~25–37%) are the big blocks. The famous "2,700 liters per shirt" counts mostly rain: actual irrigation water is closer to 500 L.',
+				productionCarbon: 3.5,
+				baselineAnnualCarbon: 4,
+				breakEven: {
+					value: 0,
+					unit: 'uses',
+					against: 'a conventional cotton tee replaced on the same schedule',
+					achievability: 'easy',
+					note: 'No payback period — but also little climate difference. Organic\'s genuine wins are pesticides and worker health, not carbon or water. The variable that dwarfs everything: how many times any shirt is worn. Impact per wear scales with 1/n.'
+				}
+			},
+			usePhase: {
+				shareOfFootprint: 30,
+				drivers: [
+					'Washing and tumble-drying are ~25–37% of a tee\'s lifetime footprint',
+					'Cold washes and line-drying eliminate most of it'
+				],
+				hygiene: {
+					risk: 'low',
+					note: 'Washable at any temperature; no special concerns.'
+				},
+				careRequired:
+					'Wash cold, line-dry, mend small holes. The footprint is fixed at purchase — wears are what amortize it, and most garments are discarded long before they wear out.'
+			},
+			verdict: {
+				tier: 'conditional',
+				headline: 'The label matters less than how long you wear it',
+				bottomLine:
+					'Organic cotton genuinely reduces pesticide use and farm-worker exposure — those benefits are real. Its climate and water advantages are not: yields run 10–30% lower (more land per shirt), the "91% less water" claim traces to an LCA its own authors said can\'t support comparisons, and the 2,700 L figure is ~75% rainfall. A conventional tee worn 100 times beats an organic tee worn 10 times by an order of magnitude per wear.',
+				caveats: [
+					'The 2,700 L water figure is mostly rain that would have fallen anyway; irrigation is ~500 L',
+					'Lower organic yields mean 10–30% more land per kg of fiber',
+					'Headline organic-vs-conventional claims were ruled misleading by Norway\'s consumer authority (Higg, 2022)',
+					'"Organic" says nothing about dyeing, spinning, or sewing unless separately certified',
+					'Buying more shirts because they\'re "sustainable" swamps any per-shirt gain'
+				],
+				smarterMove:
+					'Wear what you own until it wears out, then buy fewer, better shirts — secondhand first. Wash cold, skip the dryer. Aim for 30+ wears minimum from anything you buy.'
+			},
+			confidence: {
+				level: 'medium',
+				note: 'Carbon range and use-phase share converge across independent LCAs. The green/blue water critique is well documented. Organic-vs-conventional deltas remain contested and region-dependent.'
+			},
 			healthImpacts: {
 				score: 9,
 				concerns: [],
-				benefits: ['No harmful chemicals', 'Hypoallergenic', 'Breathable']
+				benefits: [
+					'No pesticide residues; meaningfully safer for farm workers',
+					'Breathable, hypoallergenic, no microplastic shedding'
+				]
 			},
 			useAndQuality: {
 				durability: 7,
 				functionality: 8,
 				userSatisfaction: 8
 			}
-		}
+		},
+		sources: [
+			{
+				title: 'Cotton: A Case Study in Misinformation',
+				org: 'Transformers Foundation',
+				year: 2021,
+				url: 'https://www.transformersfoundation.org/cotton-report-2021'
+			},
+			{
+				title: 'The green, blue and grey water footprint of crops and derived crop products',
+				org: 'Mekonnen & Hoekstra, UNESCO-IHE',
+				year: 2011,
+				url: 'https://www.waterfootprint.org/resources/Mekonnen-Hoekstra-2011-WaterFootprintCrops.pdf'
+			},
+			{
+				title: 'Extending product lifetimes: clothing durability',
+				org: 'WRAP',
+				year: 2022,
+				url: 'https://www.wrap.ngo/resources/case-study/extending-product-lifetimes-wraps-work-clothing-durability'
+			},
+			{
+				title: 'The Higg Index consumer-label suspension',
+				org: 'Norwegian Consumer Authority / SAC',
+				year: 2022,
+				url: 'https://www.thefashionlaw.com/the-higg-index/'
+			}
+		]
 	},
 	{
 		id: 'cast-iron-skillet',
 		name: 'Cast Iron Skillet',
 		category: 'Kitchenware',
-		description: 'Pre-seasoned 12-inch cast iron skillet, made in USA',
+		description: 'Pre-seasoned 12-inch cast iron skillet',
 		imageUrl: '/images/skillet.svg',
-		price: 50.00,
-		usesPerYear: 156, // 3x per week
+		price: 50.0,
+		usesPerYear: 156,
 		costBreakdown: {
-			rawMaterials: 35,
-			manufacturing: 25,
+			rawMaterials: 30,
+			manufacturing: 28,
 			labor: 18,
-			transportation: 5,
-			marketing: 5,
+			transportation: 6,
+			marketing: 6,
 			retail: 8,
 			profit: 4
 		},
 		assessment: {
 			negatives: {
-				carbon: 12.4,
-				water: 450,
-				waste: 0.2,
-				landUse: 0.3,
+				carbon: 7,
+				water: 300,
+				waste: 0.3,
+				landUse: 0.2,
 				pollution: 5
 			},
 			positives: {
 				livingWages: true,
-				environmentalImprovements: ['Lasts generations', 'No non-stick coatings', 'Recyclable'],
+				environmentalImprovements: [
+					'Realistically lasts 50+ years — durability does all the environmental work here',
+					'Fully restorable: rust, damage, and ruined seasoning are all reversible',
+					'Thriving secondhand market; a used skillet has near-zero marginal footprint'
+				],
 				recyclability: {
 					percentage: 100,
 					materialType: 'metal',
 					downcyclingPenalty: 0,
 					effectiveRecyclability: 100,
-					notes: 'Cast iron is infinitely recyclable. Can be melted and reformed without quality degradation. Energy-intensive to recycle but maintains full material value.'
+					notes:
+						'Single material, no coatings — melts down and reforms without quality loss. In practice it rarely needs to: skillets outlive their owners. PTFE-coated pans, by contrast, are often rejected by aluminum scrap streams.'
 				},
-				repairability: 9
+				repairability: 10
 			},
-			lifetime: 100,
+			lifetime: 50,
+			comparison: {
+				baseline: 'PTFE non-stick pan replaced every 2–5 years',
+				baselineNote:
+					'Non-stick coatings fail on a schedule; the pan is disposable by design. Its aluminum body carries a comparable or larger embodied footprint (~5–15 kg CO2e) than the skillet — and it recurs with every replacement.',
+				productionCarbon: 7,
+				baselineAnnualCarbon: 2.8,
+				breakEven: {
+					value: 3,
+					unit: 'years',
+					against: 'replacing a non-stick pan every 2–5 years',
+					achievability: 'easy',
+					note: 'The skillet is ahead by roughly the first non-stick replacement cycle. Over 30 years that\'s ~6–15 avoided pans: on the order of 50–150 kg CO2e plus several kg of unrecyclable coated aluminum. A secondhand skillet is ahead from day one.'
+				}
+			},
+			usePhase: {
+				shareOfFootprint: 85,
+				drivers: [
+					'Lifetime cooking energy dwarfs the embodied carbon of either pan by an order of magnitude',
+					'No rigorous study shows a meaningful cooking-energy difference between pan materials — cast iron heats slower but retains heat well; don\'t overclaim either way'
+				],
+				hygiene: {
+					risk: 'low',
+					note: 'A well-seasoned surface cleans easily. It must be dried promptly to prevent rust — a maintenance issue, not a health one.'
+				},
+				careRequired:
+					'Dry after washing, oil occasionally, re-season when needed. The 50-year lifetime is real but assumes this small habit — though even a rusted, neglected skillet is fully recoverable.'
+			},
+			verdict: {
+				tier: 'genuine',
+				headline: 'The rare product that earns the hype',
+				bottomLine:
+					'One material, no coatings, indefinitely repairable, a real secondhand market, and a baseline that fails on a schedule — this is what genuine sustainability looks like. It pays back within a few years and removes PTFE-degradation risk from your kitchen. Honest scale check: the total stakes are tens of kg CO2e over decades — real, but small next to diet or driving. The main risk is behavioral: it demands minor upkeep and real weight tolerance.',
+				caveats: [
+					'Only pays off if you actually keep cooking with it — an abandoned skillet helps nothing',
+					'Needs drying and occasional re-seasoning; neglect means rust (fixable, but a common quitting point)',
+					'Heavy and slow to heat; poorly suited to delicate acidic dishes — it won\'t replace every pan',
+					'Buying it while a working pan sits in the cupboard wastes the pan you own'
+				],
+				smarterMove:
+					'Buy it used — thrift stores and estate sales are full of century-old skillets that restore perfectly, at near-zero marginal footprint.'
+			},
+			confidence: {
+				level: 'medium',
+				note: 'Iron-casting emission factors (1.6–3.0 kg CO2e/kg) and non-stick replacement cycles are well documented. The non-stick pan embodied estimate is derived from material factors — no direct head-to-head pan LCA exists. Cooking-energy differences are an evidence gap.'
+			},
 			healthImpacts: {
 				score: 8,
-				concerns: ['Requires proper seasoning maintenance'],
-				benefits: ['Adds dietary iron', 'No PFAS', 'No plastic components']
+				concerns: [
+					'Iron leaching is a risk for people with hemochromatosis',
+					'Very heavy — a genuine usability limit for some people'
+				],
+				benefits: [
+					'No PTFE coating to overheat (fume risk above ~260°C) or chip into food',
+					'Meaningful dietary iron transfer — a documented benefit for iron-deficient populations',
+					'No plastic components'
+				]
 			},
 			useAndQuality: {
 				durability: 10,
-				functionality: 9,
+				functionality: 8,
 				userSatisfaction: 9
 			}
-		}
+		},
+		sources: [
+			{
+				title: 'Comparison of Carbon Footprints in Sourcing of Cast Components',
+				org: 'International Journal of Metalcasting',
+				year: 2025,
+				url: 'https://link.springer.com/article/10.1007/s40962-025-01608-5'
+			},
+			{
+				title: 'What\'s Cooking? Non-stick cookware testing report',
+				org: 'Ecology Center Healthy Stuff Lab',
+				year: 2024,
+				url: 'https://www.ecocenter.org/our-work/healthy-stuff-lab/reports/whats-cooking'
+			},
+			{
+				title: 'Food prepared in iron cooking pots and iron-deficiency anaemia: systematic review',
+				org: 'PLOS ONE',
+				year: 2019,
+				url: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0221094'
+			},
+			{
+				title: 'How does nonstick cookware work, and should you switch?',
+				org: 'C&EN, American Chemical Society',
+				year: 2025,
+				url: 'https://cen.acs.org/environment/persistent-pollutants/does-nonstick-cookware-work-should/103/web/2025/04'
+			}
+		]
 	},
 	{
 		id: 'led-desk-lamp',
 		name: 'Modular LED Desk Lamp',
 		category: 'Electronics',
-		description: 'Repairable LED lamp with replaceable components and 50,000 hour lifespan',
+		description: 'Repairable LED lamp with replaceable driver and published spare parts',
 		imageUrl: '/images/desk-lamp.svg',
-		price: 120.00,
-		usesPerYear: 365, // daily use
+		price: 120.0,
+		usesPerYear: 365,
 		costBreakdown: {
-			rawMaterials: 25,
+			rawMaterials: 22,
 			manufacturing: 18,
 			labor: 12,
 			transportation: 6,
-			marketing: 15,
+			marketing: 16,
 			retail: 14,
-			profit: 10
+			profit: 12
 		},
 		assessment: {
 			negatives: {
-				carbon: 15.2,
-				water: 890,
+				carbon: 15,
+				water: 800,
 				waste: 0.6,
 				landUse: 0.4,
 				pollution: 6
 			},
 			positives: {
-				livingWages: true,
-				environmentalImprovements: ['Energy efficient', 'Replaceable parts', 'Recyclable aluminum'],
+				livingWages: false,
+				environmentalImprovements: [
+					'Replaceable driver targets the real failure point — LEDs rarely die; their power electronics do',
+					'Aluminum body recycles well and opens for repair',
+					'Published spare-parts availability, unlike glued disposable lamps'
+				],
 				recyclability: {
 					percentage: 70,
 					materialType: 'mixed',
-					downcyclingPenalty: 0.3,
-					effectiveRecyclability: 49,
-					notes: 'Aluminum frame is fully recyclable. Electronics and plastic components require separation and specialized processing. Mixed materials reduce effective recyclability significantly.'
+					downcyclingPenalty: 0.35,
+					effectiveRecyclability: 45.5,
+					notes:
+						'The aluminum recycles; the PCB, driver, and wiring need e-waste processing. Only 22% of global e-waste is formally collected and recycled — assume small mixed-material devices mostly are not.'
 				},
 				repairability: 9
 			},
 			lifetime: 15,
+			comparison: {
+				baseline: 'A $20 glued LED lamp replaced when its driver fails',
+				baselineNote:
+					'Both lamps use efficient LEDs, so electricity — 85–96% of an LED lamp\'s lifecycle footprint on today\'s grids — is nearly identical. The comparison is really about embodied hardware: a cheap lamp dying at year 3–5 from a $0.50 capacitor strands an LED with 90% of its rated life left.',
+				productionCarbon: 15,
+				baselineAnnualCarbon: 1.5,
+				breakEven: {
+					value: 10,
+					unit: 'years',
+					against: 'cheap lamps failing every 3–5 years',
+					achievability: 'demanding',
+					note: 'Avoiding 4–6 cheap-lamp replacements saves roughly 20–100 kg CO2e of embodied impact plus several kg of effectively unrecyclable e-waste — but only if you keep this lamp 15+ years and actually order the spare part when it fails. Electricity use is a wash either way.'
+				}
+			},
+			usePhase: {
+				shareOfFootprint: 90,
+				drivers: [
+					'A ~400 kWh lifetime of electricity (~150 kg CO2e on the current US grid) dwarfs any lamp\'s embodied ~5–20 kg',
+					'Efficacy (lumens per watt) and hours-on matter more than what the lamp is made of — though embodied impact grows as grids decarbonize'
+				],
+				hygiene: { risk: 'low', note: 'No hygiene considerations.' },
+				careRequired:
+					'The 15-year story requires follow-through: keeping the lamp through moves and redecorating, and repairing instead of replacing when a part fails. Repairability you never exercise is just marketing.'
+			},
+			verdict: {
+				tier: 'conditional',
+				headline: 'Repairable beats disposable — if you actually repair it',
+				bottomLine:
+					'For LED lighting, electricity is 85–96% of the footprint and a $20 lamp runs just as efficiently — efficiency is not what the $120 buys. It buys insurance on the weakest component: sealed lamps die when their driver fails and become unrecyclable e-waste. That benefit is real but smaller than the marketing implies, and it depends entirely on you still owning and repairing this lamp a decade from now. A "50,000-hour LED" claim on a non-repairable lamp is near-meaningless — the driver dies first.',
+				caveats: [
+					'A $20 lamp uses the same electricity — check lumens-per-watt, not the housing material',
+					'Break-even takes roughly a decade of committed ownership and at least one actual repair',
+					'"Repairable" only counts while spare parts remain available',
+					'Discarded at year 5 for style reasons, it\'s worse than the cheap lamp it replaced',
+					'The payback is environmental, not financial — 6× the price never pays itself back in bulbs'
+				],
+				smarterMove:
+					'Keep whatever lamp you own until it truly dies; repair it if you can. Buy this class of product only at genuine end-of-life — and check efficacy first.'
+			},
+			confidence: {
+				level: 'medium',
+				note: 'Use-phase dominance (DOE/PNNL) and e-waste rates (ITU/UNITAR, 22.3% in 2022) are high-confidence. No published desk-lamp LCA exists — embodied figures are derived from luminaire LCAs with stated assumptions.'
+			},
 			healthImpacts: {
 				score: 8,
-				concerns: ['Blue light exposure'],
-				benefits: ['No mercury', 'Flicker-free', 'Adjustable color temperature']
+				concerns: ['Blue-light exposure in evening use, as with any LED'],
+				benefits: ['Flicker-free driver', 'Adjustable color temperature', 'No mercury (unlike CFL)']
 			},
 			useAndQuality: {
 				durability: 8,
 				functionality: 9,
 				userSatisfaction: 9
 			}
-		}
+		},
+		sources: [
+			{
+				title: 'Life-Cycle Assessment of Energy and Environmental Impacts of LED Lighting Products',
+				org: 'US DOE / Pacific Northwest National Laboratory',
+				year: 2012,
+				url: 'https://www1.eere.energy.gov/buildings/publications/pdfs/ssl/2012_LED_Lifecycle_Report.pdf'
+			},
+			{
+				title: 'Life cycle assessment of LED luminaire and impact on lighting installation',
+				org: 'Alexandria Engineering Journal',
+				year: 2023,
+				url: 'https://www.sciencedirect.com/science/article/pii/S1110016823007597'
+			},
+			{
+				title: 'Global E-waste Monitor 2024',
+				org: 'ITU / UNITAR',
+				year: 2024,
+				url: 'https://ewastemonitor.info/the-global-e-waste-monitor-2024/'
+			},
+			{
+				title: 'Fairphone 4 Life Cycle Assessment',
+				org: 'Fraunhofer IZM',
+				year: 2022,
+				url: 'https://www.fairphone.com/wp-content/uploads/2022/07/Fairphone-4-Life-Cycle-Assessment-22.pdf'
+			}
+		]
 	}
 ];
 
-export const categories = [...new Set(products.map(p => p.category))];
+export const categories = [...new Set(products.map((p) => p.category))];

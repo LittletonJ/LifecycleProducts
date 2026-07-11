@@ -1,116 +1,119 @@
 <script lang="ts">
-	import { ArrowRight, Leaf, Scale, Heart, Recycle } from 'lucide-svelte';
-	import { products } from '$lib/data/products';
+	import { ArrowRight } from 'lucide-svelte';
+	import { products, verdictLabels } from '$lib/data/products';
 	import ProductCard from '$lib/components/ProductCard.svelte';
 
 	const featuredProducts = products.slice(0, 3);
+
+	const principles = [
+		{
+			title: 'Compared against reality',
+			text: 'Every product is judged against what it actually replaces — including the option of buying nothing. A steel bottle beats bottled water; it never beats the glass you already own.'
+		},
+		{
+			title: 'The whole life, not the label',
+			text: 'Manufacturing is only the beginning. Washing, energy, upkeep, and hygiene often outweigh production — a use phase most eco-marketing quietly ignores.'
+		},
+		{
+			title: 'Break-even or it didn\'t happen',
+			text: 'Durable "eco" products carry a bigger up-front footprint. We calculate how long each one takes to pay that back — and say plainly when it never will.'
+		},
+		{
+			title: 'Honest about scale',
+			text: 'A toothbrush swap saves grams; a flight skipped saves a tonne. We tell you which decisions are big and which are rounding errors.'
+		}
+	];
 </script>
 
 <svelte:head>
-	<title>LifecycleProducts - Sustainable Product Assessments</title>
-	<meta name="description" content="Make informed decisions about products with comprehensive lifecycle assessments covering environmental impact, health, and quality." />
+	<title>Lifecycle — Honest product assessments</title>
+	<meta name="description" content="Lifecycle assessments that compare eco products against what they actually replace — including when the honest answer is to buy nothing." />
 </svelte:head>
 
-<!-- Hero Section -->
-<section class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-stone-50 dark:from-slate-900 dark:to-slate-800">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-		<div class="text-center">
-			<h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-				Know Your Product's
-				<span class="text-slate-700 dark:text-slate-300">True Impact</span>
-			</h1>
-			<p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
-				Comprehensive lifecycle assessments that reveal the environmental footprint, health impacts,
-				and true quality of everyday products. Make choices that matter.
-			</p>
-			<div class="flex flex-col sm:flex-row gap-4 justify-center">
-				<a
-					href="/assessments"
-					class="inline-flex items-center justify-center px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white font-medium rounded-lg transition-colors"
-				>
-					<span>View Assessments</span>
-					<ArrowRight class="w-5 h-5 ml-2" />
-				</a>
-				<a
-					href="/methodology"
-					class="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-medium rounded-lg border border-slate-300 dark:border-slate-600 transition-colors"
-				>
-					Learn Our Methodology
-				</a>
+<!-- Hero -->
+<section class="mx-auto max-w-3xl px-6 pb-20 pt-24 md:pt-32 lg:px-8">
+	<p class="eyebrow mb-6">Honest lifecycle assessments</p>
+	<h1 class="font-display mb-8 text-4xl leading-[1.15] text-stone-900 md:text-6xl dark:text-stone-100">
+		Most "eco" products are compared against the worst alternative.
+		<span class="text-stone-400 dark:text-stone-500">We compare them against what you'd actually do.</span>
+	</h1>
+	<p class="prose-quiet mb-10 max-w-xl text-lg">
+		Grounded in peer-reviewed lifecycle research, each assessment ends in a plain verdict:
+		genuinely better, depends on your habits, or mostly marketing.
+	</p>
+	<div class="flex flex-wrap items-center gap-6">
+		<a
+			href="/assessments"
+			class="inline-flex items-center gap-2 rounded-full bg-stone-900 px-6 py-3 text-sm font-medium text-stone-50 transition-colors hover:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-300"
+		>
+			Read the assessments
+			<ArrowRight class="h-4 w-4" />
+		</a>
+		<a
+			href="/methodology"
+			class="text-sm text-stone-500 underline decoration-stone-300 underline-offset-4 transition-colors hover:text-stone-800 dark:text-stone-400 dark:decoration-stone-600 dark:hover:text-stone-200"
+		>
+			How we judge
+		</a>
+	</div>
+</section>
+
+<!-- Verdict legend -->
+<section class="hairline border-y">
+	<div class="mx-auto grid max-w-3xl grid-cols-1 gap-6 px-6 py-10 sm:grid-cols-3 lg:px-8">
+		<div class="flex items-start gap-3">
+			<span class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-moss-500"></span>
+			<div>
+				<p class="text-sm font-medium text-stone-800 dark:text-stone-200">{verdictLabels.genuine}</p>
+				<p class="mt-1 text-xs leading-relaxed text-stone-500 dark:text-stone-400">The rare product where the evidence holds up.</p>
+			</div>
+		</div>
+		<div class="flex items-start gap-3">
+			<span class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-ochre-400"></span>
+			<div>
+				<p class="text-sm font-medium text-stone-800 dark:text-stone-200">{verdictLabels.conditional}</p>
+				<p class="mt-1 text-xs leading-relaxed text-stone-500 dark:text-stone-400">A win under specific habits — we spell out which.</p>
+			</div>
+		</div>
+		<div class="flex items-start gap-3">
+			<span class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-clay-400"></span>
+			<div>
+				<p class="text-sm font-medium text-stone-800 dark:text-stone-200">{verdictLabels.marginal}</p>
+				<p class="mt-1 text-xs leading-relaxed text-stone-500 dark:text-stone-400">Real gains too small to justify the halo.</p>
 			</div>
 		</div>
 	</div>
 </section>
 
-<!-- What We Assess Section -->
-<section class="py-16 bg-white dark:bg-slate-900">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="text-center mb-12">
-			<h2 class="text-3xl font-bold mb-4">What We Assess</h2>
-			<p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-				Every product is evaluated across multiple dimensions to give you a complete picture
-			</p>
-		</div>
-
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 mb-4">
-					<Leaf class="w-6 h-6" />
-				</div>
-				<h3 class="font-semibold mb-2">Lifecycle Impact</h3>
-				<p class="text-sm text-slate-600 dark:text-slate-400">
-					Carbon footprint, water usage, waste generation, land use, and pollution across the entire product lifecycle
+<!-- Principles -->
+<section class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
+	<p class="eyebrow mb-10">How we judge</p>
+	<div class="grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2">
+		{#each principles as principle, i}
+			<div>
+				<p class="font-display mb-3 text-lg text-stone-800 dark:text-stone-200">
+					<span class="mr-2 text-stone-300 dark:text-stone-600">{String(i + 1).padStart(2, '0')}</span>
+					{principle.title}
 				</p>
+				<p class="text-sm leading-relaxed text-stone-500 dark:text-stone-400">{principle.text}</p>
 			</div>
-
-			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-900/30 text-stone-600 dark:text-stone-400 mb-4">
-					<Heart class="w-6 h-6" />
-				</div>
-				<h3 class="font-semibold mb-2">Health Impacts</h3>
-				<p class="text-sm text-slate-600 dark:text-slate-400">
-					Safety assessment including chemical concerns, health benefits, and overall impact on wellbeing
-				</p>
-			</div>
-
-			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-900/30 text-stone-600 dark:text-stone-400 mb-4">
-					<Scale class="w-6 h-6" />
-				</div>
-				<h3 class="font-semibold mb-2">Use & Quality</h3>
-				<p class="text-sm text-slate-600 dark:text-slate-400">
-					Durability, functionality, user satisfaction, and expected lifetime of the product
-				</p>
-			</div>
-
-			<div class="text-center p-6 rounded-xl bg-slate-50 dark:bg-slate-800">
-				<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-900/30 text-stone-600 dark:text-stone-400 mb-4">
-					<Recycle class="w-6 h-6" />
-				</div>
-				<h3 class="font-semibold mb-2">Positive Impacts</h3>
-				<p class="text-sm text-slate-600 dark:text-slate-400">
-					Living wages, environmental improvements, recyclability, and repairability scores
-				</p>
-			</div>
-		</div>
+		{/each}
 	</div>
 </section>
 
-<!-- Featured Products Section -->
-<section class="py-16 bg-slate-50 dark:bg-slate-800/50">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="flex justify-between items-center mb-8">
-			<h2 class="text-3xl font-bold">Featured Assessments</h2>
+<!-- Featured assessments -->
+<section class="hairline border-t">
+	<div class="mx-auto max-w-5xl px-6 py-20 lg:px-8">
+		<div class="mb-10 flex items-baseline justify-between">
+			<p class="eyebrow">Recent assessments</p>
 			<a
 				href="/assessments"
-				class="inline-flex items-center text-slate-700 dark:text-slate-300 hover:underline font-medium"
+				class="text-sm text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
 			>
-				<span>View All</span>
-				<ArrowRight class="w-4 h-4 ml-1" />
+				View all →
 			</a>
 		</div>
-
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 			{#each featuredProducts as product}
 				<ProductCard {product} />
 			{/each}

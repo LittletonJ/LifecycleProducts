@@ -8,27 +8,19 @@
 
 	let { score, maxScore = 10, label, showValue = true }: Props = $props();
 
-	const percentage = (score / maxScore) * 100;
-
-	function getColor(pct: number): string {
-		if (pct >= 80) return 'bg-emerald-600 dark:bg-emerald-700';
-		if (pct >= 60) return 'bg-slate-500 dark:bg-slate-600';
-		if (pct >= 40) return 'bg-amber-600 dark:bg-amber-700';
-		if (pct >= 20) return 'bg-stone-600 dark:bg-stone-700';
-		return 'bg-stone-700 dark:bg-stone-800';
-	}
+	const percentage = Math.max(0, Math.min(100, (score / maxScore) * 100));
 </script>
 
-<div class="space-y-1">
-	<div class="flex justify-between text-sm">
-		<span class="text-slate-600 dark:text-slate-400">{label}</span>
+<div class="w-full">
+	<div class="mb-1.5 flex items-baseline justify-between gap-4">
+		<span class="text-sm text-stone-600 dark:text-stone-400">{label}</span>
 		{#if showValue}
-			<span class="font-medium">{score}/{maxScore}</span>
+			<span class="text-xs tabular-nums text-stone-500 dark:text-stone-500">{score}/{maxScore}</span>
 		{/if}
 	</div>
-	<div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+	<div class="h-px w-full bg-stone-200 dark:bg-stone-700">
 		<div
-			class="h-full rounded-full transition-all duration-500 {getColor(percentage)}"
+			class="h-[3px] -translate-y-[1px] rounded-full bg-moss-500 transition-all duration-700 dark:bg-moss-400"
 			style="width: {percentage}%"
 		></div>
 	</div>
