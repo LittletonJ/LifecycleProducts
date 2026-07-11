@@ -4,10 +4,8 @@
 
 	let isDark = $state(false);
 
-	// Initialize on client side
 	$effect(() => {
 		if (browser) {
-			// Check localStorage first, then system preference
 			const savedTheme = localStorage.getItem('theme');
 			if (savedTheme) {
 				isDark = savedTheme === 'dark';
@@ -38,13 +36,13 @@
 
 <button
 	onclick={toggleTheme}
-	class="p-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+	class="rounded-full p-2 text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-800 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-200"
 	aria-label="Toggle theme"
 	type="button"
 >
 	{#if isDark}
-		<Sun class="w-5 h-5" />
+		<Sun class="h-4 w-4" />
 	{:else}
-		<Moon class="w-5 h-5" />
+		<Moon class="h-4 w-4" />
 	{/if}
 </button>

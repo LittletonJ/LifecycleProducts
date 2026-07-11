@@ -1,7 +1,127 @@
 @import 'tailwindcss';
 
+/* Class-based dark mode (the theme toggle adds/removes `.dark` on <html>).
+   Tailwind 4 defaults to media-query dark mode, so this variant is required
+   for the toggle to work at all. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	/* Typography — quiet serif for display, system sans for body */
+	--font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', ui-serif, serif;
+	--font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+	/* Moss — the single accent. Muted sage-green, used sparingly. */
+	--color-moss-50: #f4f6f1;
+	--color-moss-100: #e6ebdd;
+	--color-moss-200: #cdd8c0;
+	--color-moss-300: #aebe9c;
+	--color-moss-400: #8ca277;
+	--color-moss-500: #6f8859;
+	--color-moss-600: #566c44;
+	--color-moss-700: #445537;
+	--color-moss-800: #38452e;
+	--color-moss-900: #2f3a28;
+
+	/* Ochre — muted gold for "it depends" verdicts and caveats */
+	--color-ochre-50: #faf6ec;
+	--color-ochre-100: #f2e9d2;
+	--color-ochre-200: #e4d3a5;
+	--color-ochre-300: #d2b878;
+	--color-ochre-400: #bf9d54;
+	--color-ochre-500: #a9853d;
+	--color-ochre-600: #8a6a2f;
+	--color-ochre-700: #6e5427;
+	--color-ochre-800: #594322;
+	--color-ochre-900: #4a381f;
+
+	/* Clay — muted terracotta for "mostly marketing" and warnings */
+	--color-clay-50: #f9f2ec;
+	--color-clay-100: #f1e2d8;
+	--color-clay-200: #e5cbb9;
+	--color-clay-300: #d6ab90;
+	--color-clay-400: #c48a68;
+	--color-clay-500: #b0724f;
+	--color-clay-600: #96593a;
+	--color-clay-700: #7c4830;
+	--color-clay-800: #64392a;
+	--color-clay-900: #533024;
+}
+
 @layer base {
 	html {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	body {
+		background-color: var(--color-stone-50);
+		color: var(--color-stone-800);
+	}
+
+	.dark body {
+		background-color: #171412;
+		color: var(--color-stone-200);
+	}
+
+	::selection {
+		background-color: var(--color-moss-200);
+		color: var(--color-moss-900);
+	}
+
+	.dark ::selection {
+		background-color: var(--color-moss-800);
+		color: var(--color-moss-100);
+	}
+}
+
+@layer components {
+	/* Serif display headings */
+	.font-display {
+		font-family: var(--font-display);
+		letter-spacing: -0.01em;
+	}
+
+	/* Small uppercase section labels — the quiet organizing device of the site */
+	.eyebrow {
+		font-size: 0.6875rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: var(--color-stone-500);
+	}
+
+	.dark .eyebrow {
+		color: var(--color-stone-400);
+	}
+
+	/* Hairline-bordered surface — replaces card shadows everywhere */
+	.surface {
+		background-color: #ffffff;
+		border: 1px solid var(--color-stone-200);
+		border-radius: 0.75rem;
+	}
+
+	.dark .surface {
+		background-color: #1e1b18;
+		border-color: #2e2a26;
+	}
+
+	/* Quiet horizontal rule */
+	.hairline {
+		border-color: var(--color-stone-200);
+	}
+
+	.dark .hairline {
+		border-color: #2e2a26;
+	}
+
+	/* Long-form body text */
+	.prose-quiet {
+		color: var(--color-stone-600);
+		line-height: 1.75;
+	}
+
+	.dark .prose-quiet {
+		color: var(--color-stone-400);
 	}
 }
