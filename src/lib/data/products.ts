@@ -653,9 +653,10 @@ export const products: Product[] = [
 	},
 	{
 		id: 'led-desk-lamp',
-		name: 'Modular LED Desk Lamp',
+		name: 'Repairable LED Desk Lamp',
 		category: 'Electronics',
-		description: 'Repairable LED lamp with replaceable driver and published spare parts',
+		description:
+			'A representative $120-class desk lamp designed for repair — replaceable driver, serviceable body, published spare parts. An archetype, not a specific brand.',
 		imageUrl: '/images/desk-lamp.svg',
 		price: 120.0,
 		usesPerYear: 365,
@@ -722,7 +723,7 @@ export const products: Product[] = [
 				tier: 'conditional',
 				headline: 'Repairable beats disposable — if you actually repair it',
 				bottomLine:
-					'For LED lighting, electricity is 85–96% of the footprint and a $20 lamp runs just as efficiently — efficiency is not what the $120 buys. It buys insurance on the weakest component: sealed lamps die when their driver fails and become unrecyclable e-waste. That benefit is real but smaller than the marketing implies, and it depends entirely on you still owning and repairing this lamp a decade from now. A "50,000-hour LED" claim on a non-repairable lamp is near-meaningless — the driver dies first.',
+					'First, what this is: not a specific brand, but the small class of ~$120 desk lamps designed for repair — the body opens, the driver (the power module that usually fails first) can be swapped, and spare parts are published. The comparison is against the $20 glued-shut lamp most people actually buy. For LED lighting, electricity is 85–96% of the footprint and a $20 lamp runs just as efficiently — efficiency is not what the $120 buys. It buys insurance on the weakest component: sealed lamps die when their driver fails and become unrecyclable e-waste. That benefit is real but smaller than the marketing implies, and it depends entirely on you still owning and repairing this lamp a decade from now. A "50,000-hour LED" claim on a non-repairable lamp is near-meaningless — the driver dies first.',
 				caveats: [
 					'A $20 lamp uses the same electricity — check lumens-per-watt, not the housing material',
 					'Break-even takes roughly a decade of committed ownership and at least one actual repair',
