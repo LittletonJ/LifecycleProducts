@@ -39,12 +39,27 @@ export interface BreakEven {
 	note: string;
 }
 
+export interface AnnualImpactRow {
+	carbon: number; // kg CO2e per year
+	water: number; // liters per year
+	waste: number; // kg per year
+	landUse: number; // m² per year
+}
+
+export interface AnnualImpacts {
+	baselineLabel: string; // short column label for the baseline habit
+	product: AnnualImpactRow; // this product, production amortized per year
+	baseline: AnnualImpactRow; // the baseline habit per year
+	note: string; // assumptions and what's excluded
+}
+
 export interface Comparison {
 	baseline: string; // the conventional product/habit this replaces
 	baselineNote: string;
 	productionCarbon: number; // kg CO2e to manufacture this product
 	baselineAnnualCarbon: number; // kg CO2e/year of the baseline habit
 	breakEven: BreakEven;
+	annualImpacts: AnnualImpacts; // absolute impacts, both sides normalized per year of the habit
 }
 
 export interface UsePhase {
@@ -181,6 +196,12 @@ export const products: Product[] = [
 					'Both are replaced every ~3 months and used identically — a like-for-like swap, not an investment. The much bigger fork in the road is manual vs. electric: the same LCA found an electric brush has ~11× the climate impact of a bamboo one.',
 				productionCarbon: 0.2,
 				baselineAnnualCarbon: 5,
+				annualImpacts: {
+					baselineLabel: 'Plastic manual brush (4/yr)',
+					product: { carbon: 0.8, water: 40, waste: 0.06, landUse: 0.2 },
+					baseline: { carbon: 5, water: 8, waste: 0.07, landUse: 0.01 },
+					note: 'Production only, four brushes a year on either side, scaled from the BDJ LCA ratios — medium confidence on absolutes. Brushing itself (tap water, toothpaste) is excluded and outweighs either brush.'
+				},
 				breakEven: {
 					value: 0,
 					unit: 'uses',
@@ -304,6 +325,12 @@ export const products: Product[] = [
 					'The baseline changes everything here. Against a daily bottled-water habit (~0.09 kg CO2e per 500 ml PET bottle), the steel bottle wins within weeks. Against tap water in a glass you already own, it never wins — the glass had no footprint to beat.',
 				productionCarbon: 4,
 				baselineAnnualCarbon: 33,
+				annualImpacts: {
+					baselineLabel: 'One 500 ml PET bottle a day',
+					product: { carbon: 0.5, water: 33, waste: 0.05, landUse: 0.01 },
+					baseline: { carbon: 33, water: 800, waste: 4.5, landUse: 0.1 },
+					note: 'Steel bottle production amortized over its 8-year realistic lifetime; baseline is 365 bottles of bottled water a year (UNEP / Green Alliance figures). Washing energy is excluded — it can rival production and is the main use-phase cost of the steel bottle. Against tap water in a glass you already own, the baseline column is effectively zero.'
+				},
 				breakEven: {
 					value: 25,
 					unit: 'uses',
@@ -436,7 +463,13 @@ export const products: Product[] = [
 				baselineNote:
 					'Organic vs. conventional is a farming difference, not a fiber difference — and fiber is only ~13% of a shirt\'s lifecycle CO2. Manufacturing energy (~50%) and your washing habits (~25–37%) are the big blocks. The famous "2,700 liters per shirt" counts mostly rain: actual irrigation water is closer to 500 L.',
 				productionCarbon: 3.5,
-				baselineAnnualCarbon: 4,
+				baselineAnnualCarbon: 1,
+				annualImpacts: {
+					baselineLabel: 'Conventional tee (same schedule)',
+					product: { carbon: 0.9, water: 120, waste: 0.18, landUse: 2.5 },
+					baseline: { carbon: 1, water: 110, waste: 0.18, landUse: 2 },
+					note: 'Both shirts amortized over the same four-year, 52-wears-a-year life; production only. Every difference here sits inside LCA error bars except land use — organic yields run 10–30% lower, so each organic shirt needs more farmland. Washing and drying (~25–37% of lifetime footprint) are excluded and identical for both.'
+				},
 				breakEven: {
 					value: 0,
 					unit: 'uses',
@@ -567,6 +600,12 @@ export const products: Product[] = [
 					'Non-stick coatings fail on a schedule; the pan is disposable by design. Its aluminum body carries a comparable or larger embodied footprint (~5–15 kg CO2e) than the skillet — and it recurs with every replacement.',
 				productionCarbon: 7,
 				baselineAnnualCarbon: 2.8,
+				annualImpacts: {
+					baselineLabel: 'Non-stick pan every 2–5 yrs',
+					product: { carbon: 0.14, water: 6, waste: 0.01, landUse: 0.004 },
+					baseline: { carbon: 2.8, water: 30, waste: 0.3, landUse: 0.01 },
+					note: 'Skillet production amortized over 50 years of use; baseline amortizes a ~10 kg CO₂e aluminum non-stick pan over its typical 3–4 year coating life. Cooking energy and seasoning oil are excluded — the extra mass of cast iron costs slightly more stove energy, which narrows the gap in real kitchens.'
+				},
 				breakEven: {
 					value: 3,
 					unit: 'years',
@@ -701,6 +740,12 @@ export const products: Product[] = [
 					'Both lamps use efficient LEDs, so electricity — 85–96% of an LED lamp\'s lifecycle footprint on today\'s grids — is nearly identical. The comparison is really about embodied hardware: a cheap lamp dying at year 3–5 from a $0.50 capacitor strands an LED with 90% of its rated life left.',
 				productionCarbon: 15,
 				baselineAnnualCarbon: 1.5,
+				annualImpacts: {
+					baselineLabel: 'Glued $20 lamp every 3–5 yrs',
+					product: { carbon: 1, water: 53, waste: 0.04, landUse: 0.03 },
+					baseline: { carbon: 1.5, water: 38, waste: 0.13, landUse: 0.02 },
+					note: 'Hardware only: the repairable lamp amortized over 15 years versus a cheap lamp failing every ~4 years. Electricity — roughly 10 kg CO₂e a year for either lamp — is excluded because it is identical for both, and it is larger than every number in this table.'
+				},
 				breakEven: {
 					value: 10,
 					unit: 'years',

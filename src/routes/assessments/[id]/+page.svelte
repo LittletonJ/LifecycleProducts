@@ -61,6 +61,14 @@
 		{ label: 'Land use', value: `${a.negatives.landUse} m²` }
 	];
 
+	const annual = a.comparison.annualImpacts;
+	const annualRows = [
+		{ label: 'Carbon', unit: 'kg CO₂e', product: annual.product.carbon, baseline: annual.baseline.carbon },
+		{ label: 'Water', unit: 'L', product: annual.product.water, baseline: annual.baseline.water },
+		{ label: 'Waste', unit: 'kg', product: annual.product.waste, baseline: annual.baseline.waste },
+		{ label: 'Land use', unit: 'm²', product: annual.product.landUse, baseline: annual.baseline.landUse }
+	];
+
 	const hygieneRiskLabel: Record<string, string> = {
 		low: 'Low',
 		medium: 'Worth attention',
@@ -186,13 +194,39 @@
 		</div>
 	</section>
 
+	<!-- Absolute impacts vs baseline -->
+	<section class="mb-14">
+		<h2 class="eyebrow mb-4">Absolute impacts — per year of the habit</h2>
+		<div class="surface overflow-x-auto">
+			<table class="w-full text-sm">
+				<thead>
+					<tr class="hairline border-b text-left">
+						<th class="p-4 text-xs font-medium uppercase tracking-wider text-stone-500 dark:text-stone-400">Per year</th>
+						<th class="p-4 text-right text-xs font-medium uppercase tracking-wider text-stone-500 dark:text-stone-400">{product.name}</th>
+						<th class="p-4 text-right text-xs font-medium uppercase tracking-wider text-stone-500 dark:text-stone-400">{annual.baselineLabel}</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-stone-100 dark:divide-[#2e2a26]">
+					{#each annualRows as row}
+						<tr>
+							<td class="p-4 text-stone-700 dark:text-stone-300">{row.label} <span class="text-stone-400 dark:text-stone-500">({row.unit})</span></td>
+							<td class="p-4 text-right tabular-nums text-stone-600 dark:text-stone-400">{row.product.toLocaleString()}</td>
+							<td class="p-4 text-right tabular-nums text-stone-600 dark:text-stone-400">{row.baseline.toLocaleString()}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+		<p class="mt-3 text-xs leading-relaxed text-stone-500 dark:text-stone-500">{annual.note}</p>
+	</section>
+
 	<!-- The details -->
 	<section class="mb-14">
 		<h2 class="eyebrow mb-5">The details</h2>
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 			<!-- Production footprint -->
 			<div class="surface p-6">
-				<h3 class="mb-4 text-sm font-medium text-stone-800 dark:text-stone-200">Production footprint</h3>
+				<h3 class="mb-4 text-sm font-medium text-stone-800 dark:text-stone-200">Production footprint (one unit, one-time)</h3>
 				<dl class="space-y-3">
 					{#each negativeItems as item}
 						<div class="flex items-baseline justify-between gap-4">
