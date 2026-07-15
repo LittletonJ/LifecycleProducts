@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Sun } from 'lucide-svelte';
 </script>
 
@@ -19,9 +20,9 @@
 				<div>
 					<h4 class="eyebrow mb-4">Explore</h4>
 					<ul class="space-y-2.5 text-sm">
-						<li><a href="/assessments" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Assessments</a></li>
-						<li><a href="/methodology" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Methodology</a></li>
-						<li><a href="/store" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Store</a></li>
+						<li><a href="{base}/assessments" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Assessments</a></li>
+						<li><a href="{base}/methodology" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Methodology</a></li>
+						<li><a href="{base}/store" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Store</a></li>
 					</ul>
 				</div>
 				<div>

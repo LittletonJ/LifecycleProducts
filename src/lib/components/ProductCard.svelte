@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import type { Product } from '$lib/data/products';
 	import VerdictBadge from './VerdictBadge.svelte';
 
@@ -18,7 +19,7 @@
 </script>
 
 <a
-	href="/assessments/{product.id}"
+	href="{base}/assessments/{product.id}"
 	class="surface group block p-7 transition-colors hover:border-stone-300 dark:hover:border-stone-600"
 >
 	<article>

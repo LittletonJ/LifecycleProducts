@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { ArrowRight } from 'lucide-svelte';
 </script>
 
@@ -41,7 +42,7 @@
 		</div>
 
 		<a
-			href="/assessments"
+			href="{base}/assessments"
 			class="inline-flex items-center gap-2 rounded-full bg-stone-900 px-6 py-3 text-sm font-medium text-stone-50 transition-colors hover:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-300"
 		>
 			Browse the assessments

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { ArrowLeft, ArrowUpRight } from 'lucide-svelte';
 
 	interface Reference {
@@ -366,7 +367,7 @@
 
 <div class="mx-auto max-w-3xl px-6 py-16 lg:px-8">
 	<a
-		href="/methodology"
+		href="{base}/methodology"
 		class="mb-12 inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
 	>
 		<ArrowLeft class="h-3.5 w-3.5" />

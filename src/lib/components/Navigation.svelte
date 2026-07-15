@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	import { Menu, X } from 'lucide-svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 
@@ -12,14 +13,15 @@
 	];
 
 	function isActive(href: string): boolean {
-		return $page.url.pathname === href || $page.url.pathname.startsWith(href + '/');
+		const path = base + href;
+		return $page.url.pathname === path || $page.url.pathname.startsWith(path + '/');
 	}
 </script>
 
 <nav class="hairline sticky top-0 z-50 border-b bg-stone-50/90 backdrop-blur-md dark:bg-[#171412]/90">
 	<div class="mx-auto max-w-5xl px-6 lg:px-8">
 		<div class="flex h-16 items-center justify-between">
-			<a href="/" class="flex items-center gap-2.5">
+			<a href="{base}/" class="flex items-center gap-2.5">
 				<span class="inline-block h-2 w-2 rounded-full bg-moss-500"></span>
 				<span class="font-display text-lg text-stone-800 dark:text-stone-100">Lifecycle</span>
 			</a>
@@ -28,7 +30,7 @@
 			<div class="hidden items-center gap-8 md:flex">
 				{#each navItems as item}
 					<a
-						href={item.href}
+						href="{base}{item.href}"
 						class="text-sm transition-colors {isActive(item.href)
 							? 'text-stone-900 dark:text-stone-100'
 							: 'text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200'}"
@@ -63,7 +65,7 @@
 			<div class="space-y-1 px-6 py-3">
 				{#each navItems as item}
 					<a
-						href={item.href}
+						href="{base}{item.href}"
 						onclick={() => (isMenuOpen = false)}
 						class="block rounded-md px-3 py-2 text-sm {isActive(item.href)
 							? 'text-stone-900 dark:text-stone-100'

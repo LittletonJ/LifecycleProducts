@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { ArrowRight } from 'lucide-svelte';
 	import { verdictLabels } from '$lib/data/products';
 
@@ -233,7 +234,7 @@
 
 	<!-- References link -->
 	<a
-		href="/methodology/references"
+		href="{base}/methodology/references"
 		class="surface group flex items-center justify-between p-6 transition-colors hover:border-stone-300 dark:hover:border-stone-600"
 	>
 		<div>
