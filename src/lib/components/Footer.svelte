@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { Sun } from 'lucide-svelte';
 </script>
 
 <footer class="hairline mt-auto border-t">
@@ -24,13 +23,6 @@
 						<li><a href="{base}/methodology" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Methodology</a></li>
 						<li><a href="{base}/store" class="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200">Store</a></li>
 					</ul>
-				</div>
-				<div>
-					<h4 class="eyebrow mb-4">Hosting</h4>
-					<div class="flex items-center gap-1.5 text-sm text-stone-500 dark:text-stone-400">
-						<Sun class="h-3.5 w-3.5 text-ochre-400" />
-						<span>Solar-powered Raspberry Pi</span>
-					</div>
 				</div>
 			</div>
 		</div>
